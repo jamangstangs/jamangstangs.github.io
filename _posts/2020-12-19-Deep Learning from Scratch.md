@@ -561,3 +561,284 @@ for i in range(iters_num):
         test_acc_list.append(test_acc)
         print(train_acc, test_acc)
 ```
+
+## 학습 관련 기술들
+지금까지 매개변수의 최적값을 찾는 문제에서 기울기를 사용하여 기울어진 방향으로 매개변수 값을 갱신하는 방식으로 값을 찾아 나갔다. 지금까지 위에서 구현했던 갱신의 방식에서는 Learning rate와 미분값을 곱하여 기울어진 방향으로 일정한 거리만 가겠다는 단순한 방식을 사용해 왔다. 이것을 SGD라고 한다.  
+
+### SGD(확률적 경사 하강법)
+![6.1](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 6.1.png)  
+
+-   W : 갱신할 가중치 매개변수
+-   η : 학습률 -> 앞에서 구현한 매개변수 갱신에서 학습률이며, 0.1과 같이 미리 정해서 사용했음을 알 수 있다.
+-   <- : 좌변의 값을 우변의 값으로 갱신한다는 의미  
+
+따라서 SGD는 기울어진 방향으로 **일정 거리**만 가겠다는 단순한 방법이다. 구현은 아래와 같다.  
+
+```python
+class SGD: 
+    def __init__(self, lr = 0.01):
+        self.lr = lr
+
+    def update(self, params, grads):
+        for key in params.keys():
+            params[key] -= self.lr*grad[key]
+```  
+
+-   위의 구현처럼 모듈화하여 optimizer = SGD()와 같이 기능을 모듈화 하기가 좋다.  
+
+### 모멘텀
+물리와 관계있는 모델이며 수식은 아래와 같다.
+![6.2](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 6.2.png)  
+![6.3](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 6.3.png)  
+
+-   W : 갱신할 가중치 매개변수
+-   v : 물리에서 말하는 속도에 해당한다.  
+
+구현은 아래와 같다.
+```python
+class Momentum:
+    def __init__(self, lr = 0.01, momentum = 0.9):
+        self.lr = lr
+        self.momentum = momentum
+        self.v = None
+
+    def update(self, params, grads):
+        if self.v is None:
+            self.v = {}
+            for key, val in params.items()
+                self.v[key] = np.zeros_like(val)
+        
+        for key in params.keys():
+            self.v[key] = self.momentum * self.v[key] - self.lr*grads[key]
+            params[key] += self.v[key]
+```  
+
+### AdaGrad
+처음에는 크게 학습을 하다가 나중에 들어서는 조금씩 학습한다는 방법이다. 수식은 아래와 같다.  
+
+![6.5](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 6.5.png)  
+![6.6](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 6.6.png)  
+
+-   개별 매개변수에 적응적으로 학습률을 조정하면서 학습을 진행한다.   
+
+## 가중치의 초깃값
+신경망의 학습에서 가중치의 초깃값을 무엇으로 설정하느냐에 따라서 앞으로의 학습의 성패가 결정되는 일이 자주 있다고 한다. 이번 파트에서는 **권장 초깃값**에 대해 설명하고 실험을 통해 실제로 신경망 학습이 신속하게 이루어지는 모습을 확인하겠다.  
+
+### 초깃값이 0일때
+-   가중치 감소 : 오버피팅(학습 데이터에만 적응하여 실전 데이터에서는 성능을 발휘하지 못하는 현상)을 억제해 범용성능을 높이는 기술. 기술의 원리는 가중치 매개변수의 값이 작아지도록 학습하는 방법이지만, 초깃값을 0으로 설정한다면 오차역전파법에서 모든 가중치의 값이 똑같이 갱신되기 때문이다. 
+
+### 은닉층의 활성화값 분포
+![6-10](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 6-10.png)    
+
+-   가우시안 표준정규분포에서는 평균이 0이고 표준편차가 1이다. 이때 무작위 생성된 가중치 매개변수들을 집어 넣고 은닉층의 활성화값(Activation Function의 출력값)을 본다면 대부분의 출력이 0과 1에 분포하게 된다. 이런 양상은 후에 시그모이드 함수의 형상을 생각하면 0과 1에서 기울기가 0에 가까워지게 된다. 그렇게 되면 역전파의 기울기 값이 점점 작아지다 사라지게(0에 근접한다)는 사실을 알 수 있다. 이러한 현상을 **기울기 소실**이라고 한다.
+
+![6-11](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 6-11.png)  
+
+-   random.randn(가우시안 표준정규분포) -> 여기에 0.01을 곱한다면 표준편차를 0.01로 만들 수 있다(생성된 표본의 표준편차가 1이므로). 하지만 활성화값의 분포를 본다면 0.5에 치우쳐있는데, 이렇게 된다면 여러게의 뉴런을 둔 의미가 없어지게 된다. **즉, 표현력을 제한한다는 의미가 된다.**
+
+![6-13](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 6-13.png)  
+
+-   Xavier 초깃값 : 앞 계층의 노드의 개수 -> **n**일 때, 표준편차가 1/√n인 분포를 사용하는 방식. 이러한 방식을 사용한다면 층이 깊어질수록 형상이 일그러지지만, 각 층에 흐르는 데이터는 넓게 퍼져있다.  
+
+![6-14](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 6-14.png)  
+
+
+-   He 초깃값 : 앞 계층의 노드의 개수 -> **n**일 때, 표준편차가 √2/√n인 분포를 사용하는 방식이며 **ReLU에 특화된 초깃값**. 위의 그림을 보면 활성화 함수로 ReLu를 사용했을때 각각의 초깃값을 사용할 때의 활성화값 분포 양상이다. He초깃값을 사용하면 층이 깊어져도 균등하게 분포한다는 것을 볼 수 있다.  
+
+위의 결과에 따라 정리하면 다음과 같다.  
+
+|활성화 함수|초깃값|
+|----------|------|
+|ReLU|He|
+|Sigmoid|Xavier|
+|tanh|Xavier|
+
+## 합성곱 신경망 (CNN)
+이미지 인식과 음성 인식 등 다양한 곳에서 사용되며, 특히 **이미지 분야**에서 딥러닝을 활용한 기법은 대부분 CNN을 기초로 한다고 한다. 아래에서 CNN의 메커니즘을 자세히 설명하고 이를 파이썬으로 구현해보겠다.
+
+## 지금까지 구현한 신경망 vs CNN
+![7-1](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-1.png)  
+
+-   위의 그림은 현재까지 구현했던 신경망의 구조이며 이를 **완전연결(Fully Connected)**라고 하며 완전히 연결된 층을 Affine계층이라는 이름으로 구현하였다. 
+-   Affine계층 뒤에 활성화 함수인 ReLU계층이 이어진다. 마지막 층에서는 활성화 함수가 Softmax로 구현됨.
+![7-2](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-2.png)  
+
+-   CNN 계층이며, **합성곱 계층**과 **풀링 계층**이 추가되었다. 앞의 계층에서는 Conv-ReLU-Pooling 계층으로 구성되며, 출력에 가까운 층에서는 현재까지 구현해온 Affine-ReLU계층으로 구성을 사용할 수 있다. 마지막 출력은 Affine-Softmax계층을 그대로 사용한다. 
+-   위의 구현이 일반적인 CNN의 구조이다.
+-   현재까지의 구현과는 달리 **입체적인 데이터**가 흐른다. 
+
+## Affine 계층 vs Convolutional 계층
+-   완전연결 계층의 문제점 : mnist데이터 셋을 사용할 때 형상이 1차원인 배열을 사용했다(load_mnist에서 flatten의 초기 설정값이 True이므로 별도의 설정을 하지 않아도 1차원 배열로 파일을 불러왔었다.) -> 하지만, 이미지는 3차원 배열(가로, 세로, 색상)으로 구성된 데이터이며, 각 픽셀을 1차원으로 변환한다면 인접했던 픽셀들 사이의 정보가 훼손되며 3차원 속에서 갖는 패턴들이 무시되었다. 따라서 완전연결 계층에서는 **형상을 무시하여 형상에 담긴 정보를 살릴 수 없었다.**
+-   합성곱 계층의 이점 : 이미지를 3차원으로 받으므로 다음 계층으로 데이터를 전달할 때 3차원 데이터가 가질 수 있는 내재된 데이터를 그대로 전달할 수 있다. 
+    -   특징 맵(Feature map) : Convolutional 계층의 입출력 데이터를 지칭하는 말 => 입출력 데이터와 특징 맵을 같은 의미로 사용한다.
+    -   Imput Feature map : 입력 데이터
+    -   output Feature map : 출력 데이터 
+
+## 합성곱 연산
+![7-3](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-3.png)    
+
+-   입력데이터에 필터(커널)를 적용하며 합성곱 연산에서 계산은 필터의 윈도우를 일정 간격 이동해가면 입력 데이터에 적용해간다. 이때 필터에 대응하는 원소들의 곱의 합을 구하여 출력에 해당장소에 저장한다. 이 과정을 반복한다면 합성곱 연산의 출력이 완성된다.
+-   **필터의 매개변수** = 그동안의 **가중치**
+-   편향은 필터를 적용한 결과값에 고정값을 모든 원소에 더하는 방식으로 적용한다.
+
+## 패딩
+![7-6](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-6.png)  
+
+-   위의 합성곱 연산을 계속 이어나간다면 심층 신경망에서는 출력 데이터의 크기가 작아지게된다. 이를 방지하기위해 입력 데이터 주위에 **특정값**을 채워 합성곱 이후에도 입력 데이터의 크기가 유지됨을 알 수 있다.
+
+## 스트라이드
+![7-7](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-7.png)  
+
+`   위의 그림처럼 필터를 적용하는 위치의 간격을 스트라이드라고 한다. 윈도우가 이동하는 간격을 말하는 것이다.  
+
+## 패딩, 스트라이드, 출력의 크기를 계산하는 방법
+![7-12](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 7.1.png)
+-    출력의 크기가 정수가 아니라면 오류를 출력하도록 설정. 일부 딥러닝 프레임워크에서는 가장 가까운 정수로 반올림하여 에러를 딱히 내지않는 경우도 있다.
+
+## 3차원 데이터의 합성곱 연산
+3차원 데이터 합성곱 연산에서는 2차원에서 다루는 합성곱과 크게 다르지는 않지만, 입체성을 결정하는 **채널 방향**이 존재함을 염두해야 한다. 하지만 **입력 데이터의 채널수**와 **필터의 채널 수**는 항상 같아야 한다. 그렇다면 출력값의 채널이 입력값의 채널보다 훨씬 작을텐데 이를 어떻게 해결할까? => 필터의 개수를 늘려 출력 채널수를 증가시킨다. 필터의 가중치 데이터는 **(출력 채널 수, 입력 채널 수, 높이, 너비)**순으로 작성되며 대략적인 그림은 아래와 같다. 
+![7-12](/assets/images/post/2020-12-25-DeepLearningFromScratch/fig 7-12.png)  
+
+## 풀링 계층
+세로 - 가로 방향의 공간을 줄이는 연산으로 아래 그림과 같이 일정 크기의 공간을 하나의 원소로 밀집시켜 공간의 크기를 줄인다. 이때 하나의 원소로 밀집시키는 기준은 일정 크기 공간 안에서 가장 큰 원소를 선택하는 것이다.  
+![7-13](/assets/images/post/2020-13-25-DeepLearningFromScratch/fig 7-13.png)  
+
+-   스트라이드 2로 처리하는 과정이며 보통 풀링의 윈도우 크기과 스트라이드는 같은 값으로 설정한다. 
+-   세로 - 가로 공간만 줄이므로 채널의 수가 변하지 않는다.
+
+## im2col(image to column)
+입력 데이터를 필터링하기 좋게 펼치는 함수이다. 정확히는 4차원 데이터를 2차원으로 변환하는 역할을 한다. 대력적인 im2col을 사용한 합성곱 연산의 필터 처리 과정은 다음과 같다.
+![7-19](/assets/images/post/2020-13-25-DeepLearningFromScratch/fig 7-19.png)  
+
+## 합성곱 계층 구현하기
+im2col은 필터 크기, 스트라이드, 패딩을 고려하여 입력 데이터를 2차원 배열로 전개한다. 구현은 아래와 같다.  
+
+```python
+class Convolution:
+    def __init__(self, W, b, stride = 1, pad = 0):
+        self.W = W
+        self.b = b
+        self.stride = stride
+        self.pad = pad
+    def forward(self,x):
+        FN, C, FH, FW = self.W.shape        #convolution class의 지역변수 필터의 가중치의 형상을 입력받음
+        N, C, H, W = x.shape                #입력값의 형상을 받음
+        out_h = int(1+(H+2*self.pad-FH)/self.stride)
+        out_w = int(1+(W+2*self.pad - FW)/ self.stride)
+
+        col = im2col(x,FH,FW,self.stride, self.pad)
+        col_W = self.W.reshape(FN, -1).T
+        out = np.dot(col, col_W) + self.b   
+
+        out = out.reshpae(N, out_h, out_W, -1).transpose(0, 3, 1, 2)
+
+        return out
+```   
+
+## 풀링 계층 구현하기
+```python
+class Pooling:
+    def __init__(self,pool_h, poop_w,stride=1, pad = 0):
+        self.pool_h = pool_h
+        self.pool_w = poop_w
+        self.stride = stride
+        self.pad = pad
+    
+    def forward(self,x):
+        N, C, H, W = x.shape
+        out_h = int(1+(H-self.pool_h)/self.stride)
+        out_w = int(1+(W-self.pool_w)/self.stride)
+
+        col = im2col(x,self.pool_h,self.pool_w,self.stride,self.pad)
+        col = col.reshape(-1,self.pool_h*self.pool_w)
+
+        out = np.max(col,axis=1)
+
+        out = out.reshape(N, out_h, out_w, C).transpose(0,3,1,2)
+
+        return out
+```
+## CNN 구현하기
+```python
+class SimpleConvnet:
+    def __init__(self, input_dim = (1, 28,28), 
+    conv_param = {'filter_num' : 30, 'filter_size' : 5, 'pad' : 0, 'stride' : 1}, 
+    hidden_size =100, output_size = 10, weight_init_std  0.01):
+
+    # 딕셔너리에 합성곱 계층의 하이퍼파라미터 값을 딕셔너리에 저장하여 나중에 쓰기 쉽도록 조정
+    # 합성곱 계층의 출력을 미리 계산해둠
+    filter_num = conv_param['filter_num']
+    filter_size = conv_param['filter_size']
+    filter_pad = conv_param['pad']
+    filter_stride = conv_param['stride']
+    input_size = input_dim[1]
+    conv_output_size = (input_size - filter_size +2*filter_pad)/filter_stride+1
+    pool_output_size = int(filter_num*(conv_output_size/2)*(conv_output_size/2))
+
+    # 가중치 매개변수를 초기화 하는 부분
+    self.params = {}
+    # 합성 곱 계층의 가중치와 편향
+    self.params['W1'] = weight_init_std*np.random.randn(filter_num,input_dim[0],filter_size,filter_size)
+    self.params['b1'] = np.zeros(filter_num)
+    #Affine 계층의 가중치와 편향
+    self.params['W2'] = weight_init_std*np.random.randn(pool_output_size,hidden_size)
+    self.params['b2'] = np.zeros(hidden_size)
+    #Affine 계층의 가중치와 편향
+    self.params['W3'] = weight_init_std*np.random.randn(hidden_size,output_size)
+    self.params['b3'] = np.zeros(output_size)
+
+    #CNN을 구성하는 계층을 생성
+    self.layers = OrderedDict()
+    self.layers['Conv1'] = Convolution(self.params['W1'],self.params['b1'],conv_param['stride'],conv_param['pad'])
+    self.layers['ReLU'] =ReLU()
+    self.layers['Pool1'] = Pooling(pool_h=2,pool_w=2,stride =2)
+    self.layers['Affine1'] = Affine(self.params['W2'],self.params['b2'])
+    self.layers['ReLU2'] = ReLU()
+    self.layers['Affine2'] = Affine(self.params['W3'],self.params['b3'])
+    self.last_layer = SoftmaxWithLoss()
+
+#Predict 매서드와 loss 매서드 구축
+    def predict(self,x):
+         for layer in self.layers.values():
+             x=layer.forward(x)
+        return x
+
+    def loss(self,x,t):
+        y = self.predict(x)
+        return self.last_layer.forward(y,t)
+
+    def gradient(self,x,t):
+        self.loss(x,t)  #순전파
+
+        #역전파
+        dout = 1
+        dout = self.last_layer.backward(dout)
+
+        layers = list(self.layers.values())
+        layers.revers()
+        for layer in layers:
+            dout = layer.backward(dout)
+
+        #결과를 저장
+        grads = {}
+        grads['W1'] = self.layers['Conv1'].dW
+        grads['b1'] = self.layers['Conv1'].db
+        grads['W2'] = self.layers['Affine1'].dW
+        grads['b2'] = self.layers['Affine1'].db
+        grads['W3'] = self.layers['Affine2'].dW
+        grads['b3'] = self.layers['Affine2'].db
+
+        return grads
+```
+
+
+
+
+
+
+
+
+
+
+
+
