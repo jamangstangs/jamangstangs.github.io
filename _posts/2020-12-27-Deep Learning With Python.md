@@ -1,6 +1,7 @@
 ---
 title: 케라스 창시자에게 배우는 딥러닝(Deep Learning with Python)
-categories: -   Deep Learning
+categories: 
+    -   Deep Learning
 ---
 ## AI, Machine Learning 그리고 Deep Learning
 우리가 말하는 AI(인공 지능)연구는 보통의 사람이 수행하는 지능적인 작업을 자동화하기 위한 연구 활동이다. 여기서는 AI, Machine Learning 그리고 Deep LearningS이 무엇이며 어떤 범주안에 속하는지 알아 볼 것이다.
