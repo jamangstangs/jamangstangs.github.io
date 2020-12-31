@@ -1,6 +1,6 @@
 ---
 title: Deep Learning from Scratch 1
-categories : DeepLearning
+categories: -   Deep Learning
 ---
 
 ## 퍼셉트론

@@ -1,6 +1,6 @@
 ---
 title: Pytorch Tutorial in 60m
-categories: Pytorch
+categories: -   Deep Learning
 ---
 ## Tensor
 ### Tensor 생성

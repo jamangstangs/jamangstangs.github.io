@@ -1,7 +1,7 @@
 ---
 title: YouTube Clone Coding
 categories:
-  - YouTube Clone Coding
+-   HTML&CSS
 ---
 
 ## YouTube 클론 코딩을 시작한 계기

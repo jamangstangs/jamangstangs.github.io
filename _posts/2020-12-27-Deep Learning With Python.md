@@ -1,9 +1,9 @@
 ---
 title: 케라스 창시자에게 배우는 딥러닝(Deep Learning with Python)
-categories : DeepLearning
+categories: -   Deep Learning
 ---
 ## AI, Machine Learning 그리고 Deep Learning
-우리가 말하는 AI(인공 지능)연구는 보통의 사람이 수행하는 지능적인 작업을 자동화하기 위한 연구 활동이다. 여기서는 AI, Machine Learning 그리고 Deep Learning이 무엇이며 어떤 범주안에 속하는지 알아 볼 것이다.
+우리가 말하는 AI(인공 지능)연구는 보통의 사람이 수행하는 지능적인 작업을 자동화하기 위한 연구 활동이다. 여기서는 AI, Machine Learning 그리고 Deep LearningS이 무엇이며 어떤 범주안에 속하는지 알아 볼 것이다.
 
 ### Symbolic AI
 Symbolic AI는 **명시적인 규칙**을 충분하게 많이 만들어 지식을 다루면 인간 수준의 AI를 만들 수 있다는 접근방식이다. => 전문가 시스템(Expert System)으로 인기가 절정에 달함
