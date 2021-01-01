@@ -1,5 +1,6 @@
 ---
 title: Pytorch Tutorial in 60m
+toc: true
 categories:
  - Deep Learning
 ---

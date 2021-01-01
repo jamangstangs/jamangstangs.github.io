@@ -1,5 +1,6 @@
 ---
 title: 터미널 사용법
+toc: true
 categories:
 - Basic Step for Developer
 ---

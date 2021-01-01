@@ -1,5 +1,6 @@
 ---
 title: 케라스 창시자에게 배우는 딥러닝(Deep Learning with Python)
+toc: true
 categories: 
     -   Deep Learning
 ---

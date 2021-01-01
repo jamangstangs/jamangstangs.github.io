@@ -1,5 +1,6 @@
 ---
 title: Deep Learning from Scratch 1
+toc: true
 categories:
      -   Deep Learning
 ---
