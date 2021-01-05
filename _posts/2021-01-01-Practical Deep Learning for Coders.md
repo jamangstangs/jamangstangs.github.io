@@ -236,11 +236,23 @@ validation set을 좋게 정하기 위해서, data set에서 단순히 일부분
 - 시간 연속적 데이터 : 이러한 데이터에서 validation, test sets를 랜덤으로 뽑는다면 대부분의 비즈니스 사용 사례를 대표하지 않는다. 이럴때는 랜덤으로 골라내는 것이 아니라 미래에 사용할 데이터, 즉 최근에 사용한 데이터를 validation set으로 사용하면 된다. 마치 펀드 매니저들이 과거 데이터를 통해 미래를 예측하는 것과 같은 개념이다.
 - 쉽게 예상이 가능한 데이터를 포함하는 것 : 데이터 생산 과정에서 train할 데이터와 validation할 데이터를 질적으로 다르게 해야한다. 
 
+## Quiz Time
 
-
-
-
-
+1. 우리는 항상 224pixels로 된 이미지로 Deep Learning을 해야하는 것인가?
+   - 역사적으로 다뤄오던 이미지의 사이즈가 224픽셀이므로, Pretrained model을 사용할때는 그게 편하겠지만, 우리가 값을 조정한다면 어떠한 것도 넣을 수 있다.
+2. 랜덤으로 Validation set을 사용하면 안되는 이유
+   - 시간과 얽힌 데이터에서 random으로 validation set을 설정하면 시간을 전혀 고려하지 않은 딥러닝이 일어난다. 즉, 미래를 예측해야 하는 데이터에서 랜덤으로 validation set를 뽑는 행위는 그래프를 봤을 때 직관적으로도 의미가 없을 뿐더러 올바른 Prediction이 안나와서 하는 것 자체에 의미가 없다. 따라서 시간을 구역으로 자르는 validation set이 추출하는데 있어서 정답이라고 생각한다.
+3. Overfitting에 대한 나의 생각
+   - Overfitting은 딥러닝 모델에서 Parameter 값들이 오직 Training set에서만 너무 적응하여 Test set, Validation set을 통해서 prediction을 내놓을 때 모델이 이상한 출력을 내는 것이다. 
+4. Metric vs Loss
+   - Metric : 사람의 예상으로 선정한 validation set을 사용한 모델의 Prediction의 품질을 매 Epoch 마다 측정하는 것이다. 
+   - Loss : SGD를 사용하여 모델이 얼마나 좋은 prediction을 내놓는지 측정하는 것이다.
+5. CNN 모델이 층에서 찾는 특성들의 종류
+   - 초기 Layer : 여기서는 대각선, 수평선, 수직선과 같은 선 성분의 특징을 Parameter에 저장하는 Layer이다.
+   - 중기 Layer : 여기서는 패턴, 원, 코너 등을 학습한다.
+   - 후기 Layer : 의미적인 요소를 파악하고 최종적은로는 개념적인 특징을 파악한다.
+6. Segmentation의 의미
+   - 인식한 한 객체의 컨텐츠를 구성하는 **픽셀**을 Segmentation이라고 한다.
 
 
 
