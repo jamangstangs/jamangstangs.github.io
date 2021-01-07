@@ -1,6 +1,6 @@
 ---
 
-title: Practical Deep Learning for Coders 1
+title: Practical Deep Learning for Coders Intro
 
 toc: true
 
