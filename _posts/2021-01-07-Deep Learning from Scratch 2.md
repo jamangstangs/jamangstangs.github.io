@@ -167,7 +167,7 @@ def create_co_matrix(corpus, vocab_size, windwo_size = 1):
 
 위에서는 동시발생 행렬을 활용하여 단어를 벡터로 표현하는 방법을 알아보았다. 그렇다면 여기서 **벡터 사이의 유사도**를 측정하는 방법을 살펴보자. 보통 단어벡터의 유사도를 나타낼때는 **코사인 유사도**를 자주 이용한다. 코사인 유사도는 다음과 같이 정의된다.
 
-​		      $  similarity(\mathbf{x},\mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}} {\Vert \mathbf{x} \Vert \Vert \mathbf{y} \Vert}  = \frac{x_1y_1 + \cdot \cdot \cdot + x_n y_n}{\sqrt{x_1^2 + \cdot \cdot \cdot + x_n^2} \sqrt{y_1^2 + \cdot \cdot \cdot + y_n^2}}$
+​		<center>      $  similarity(\mathbf{x},\mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}} {\Vert \mathbf{x} \Vert \Vert \mathbf{y} \Vert}  = \frac{x_1y_1 + \cdot \cdot \cdot + x_n y_n}{\sqrt{x_1^2 + \cdot \cdot \cdot + x_n^2} \sqrt{y_1^2 + \cdot \cdot \cdot + y_n^2}}$ </center>
 
 -  분자에는 벡터의 내적이, 분모에는 각 벡터의 Norm이 등장한다. 노름(norm)은 벡터의 크기를 나타낸 것으로, 각 원소를 제곱해서 더한 후 다시 제곱근을 구해 계산하는 것이다. 이 식을 직관적으로 이해하면 두 벡터가 가리키는 방향이 얼마나 비슷한가이며, 완전히 같다면 1, 완전히 다르다면 -1의 값을 지니게 된다. 위의 식을 파이썬으로 구현하면 다음과 같다.
 
@@ -197,6 +197,153 @@ c0 = C[word2id['you']]
 c1 = C[word2id['i']]
 pruint(cos_similarity(c0,c1))
 ```
+
+- 결과값은 0.70..정도로 나왔으므로 유사성이 비교적 높다라는 것을 알 수 있다.
+
+### 유사 단어의 랭킹 표시
+
+위의 유사도 출력을 기본으로, 우리는 어떤 단어를 검색하면 그 단어와 유사성이 높은 단어를 유사도 순으로 출력하는 함수를 만들어내고 싶다. 그 구현은 아래와 같다고 하자.
+
+```python
+def most_similar(query, word2id, id2word, word_matrix, top=5):
+  if query not in word2id:
+    print('%s를 찾을 수 없습니다.' %  query)
+    return
+ 
+	print('\n[query]' + query)
+	query_id = word2id[query]
+	query_vec = word_matrix[query_id]
+
+	vocab_size = len(id2word)
+	similarity = np.zeros(vocab_size)
+	for i in range(vocab_size):
+	  similarity[i] = cos_similarity(word_matrix[i], query_vec)
+  
+	count = 0
+	for i in (-1*similarity).argsort():
+ 	 if id2word[i] == query:
+    continue
+ 	 print('%d %d' % (id2word[i], similarity[i]))
+  
+ 	 count +=1
+  
+ 	 if count>=top:
+    return
+```
+
+- 검색단어와 다른 모든 단어 벡터와의 코사인 유사도를 구하고, 이를 기준으로 가장 높은 값부터 정렬한다.
+
+## 통계 기반 기법 개선하기
+
+동시 발생 행렬의 원소는 두 단어가 동시에 발생한 횟수를 나타낸다. 하지만 이것만으로 말뭉치에서 정보를 추출하기에는 역부족이다. 예를들어 고빈도 단어를 보자. "the"와 "car"의 동시발생은 "car"와 "drive"의 빈도보다 높을 것이다.(자연어의 관점에서는 전자가 발생 빈도가 높음을 직관적으로 알 수 있다.) 하지만 의미에 있어서 관련성은 "car"와 "drive"사이의 관계가 더 의미있음을 우리 인간은 알고 있다. 이를 해결하기 위해 **점별 상호정보량(Pointwise Mutual Information, PMI)**이라는 척도를 사용한다. PMI는 아래와 같이 정의된다.
+
+<center> $ PMI(x,y) = log_2 \frac{P(x,y)}{P(x)P(y)}$ </center>
+
+- P(x), P(y) : x와 y가 각각 일어날 확률을 의미한다.
+- P(x,y) : x 와 y가 동시에 일어날 확률을 의미한다
+
+위의 식을 **동시 발생 행렬** 을 사용하여 식을 아래와 같이 정의할 수 있다.
+
+<center>$PMI(x,y) = log_2 \frac{P(x,y)}{P(x)P(y)} = log_2 \frac{\frac{C(x,y)}{N}}{\frac{C(x)}{N}\frac{C(y)}{N}} = log_2 \frac{C(x,y) \cdot N}{C(x)C(y)}$</center>
+
+- C : 동시발생 행렬으로, 각 원소는 동시발생한 단어의 횟수를 나타낸다. 
+- N : 말뭉치에 포함된 단어 수를 의미한다.
+
+위의 식을 사용하여 "the"와 "car"의 관계와 "car"와 "drive"의 관련성을 비교하면, 후자의 관련성이 더 크게 나온다. 왜냐하면 위의 식은 분모 값에 단독으로 출현할 확률 또한 고려하므로, 오직 상호간의 발생 빈도만을 고려한 것이 아닌 말뭉치 자체로 보았을 때 단어가 연관된 단어보다 단독으로 출현한 횟수가 상대적으로 많으면, "car"와 "drive"같이 단독으로 출현한 횟수도 비슷하고, 서로 동시에 출현한 횟수도 비슷하니까 전자보다 관련성이 깊다는 것을 알 수 있다.
+
+하지만 위의 식에서는 P(x,y)가 0이 된다면 $log_2 0$의 값이  $- \infty$이므로, 실제로 구현할 때는 아래와 같이 **양의 상호정보량(Positive PMI)**를 사용한다.
+
+<center>PPMI(x,y) = max(0,PMI(x,y))</center>
+
+위의 PPMI 행렬 역시 큰 문제가 있는데, 아래에 하나 씩 기술해 보겠다. 
+
+- 다루는 행렬의 크기가 너무 크다 : 말뭉치의 어휘 수가 증가함에 따라 각 단어의 차원수도 증가한다. 예를들어 우리가 다루게 될 말뭉치의 어휘 수가 10만개 라면, 그 벡터의 차원수도 10만이 된다. 따라서 10만 차원의 벡터를 다루는 것은 그다지 현실적이지 않다.
+- 대부분의 원소가 0이다 : 다루게 될 행렬의 크기는 큰데, 대부분이 0이면은 불필요한 정보가 많다는 뜻이다. 즉, 중요도가 낮은 정보가 많이 껴있어 **노이즈**가 발생한다는 것이다. 특히 이 문제에 대처하기 위해 생각해낸 방법이 **차원 감소** 이다.
+
+### 차원 감소
+
+위에서 대부분의 원소가 0이라 함은 대부분의 정보의 중요도가 낮다는 의미이므로, 우리는 벡터의 차원을 줄이는 방법을 고안하게 되었다. 핵심은 **중요한 정보는 최대한 유지** 하는 것이다. 직관적인 예를 들면 아래와 같다.
+
+![2-8](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 2-8.png)
+
+- 왼쪽은 데이터 점들을 2차원 좌표에 표시한 모습이다.
+
+- 오른쪽은 **새로운 축**으ㄹ 도입하여 데이터를 좌표축 하나만으로 표시했다. 이때 각 데이터 값들은 사영된 값으로 변하게 된다, 이때 중요한 점은 **1차원 값 만으로도 데이터의 본직적인 차이를 구별할 수 있어야 한다.**
+
+- 위와 같이 차원을 감소시키는 방법은 여러가지지만, 우리는 **특이값 분해(SVD, Singular Value Decomposition)**를 사용할 것이다. 수식으로는 아래와 같다.
+
+  <center>
+    $X = USV^T$
+  </center>
+
+SVD는 임의의 행렬 X를 U, S, V의 세 행렬의 곱으로 분해한다. 여기서 U와 V는 **직교행렬(Orthogonal Matrix)** 이며, S는 **대각행렬(Diagonal Matrix)**이다. 
+
+- U는 직교행렬로, 직교행렬은 어떠한 공간의 축을 형성한다. 이러한 행렬을 단어 공간으로 취급할 수 있다. 
+- S는 대각행렬로, 대각 성분에는 **특이값(Singular Value)**이 큰 순서로 나열되어있다. 특이값은 다시 말해 **해당 축**의 중요도라고 간주할 수 있다. 
+- 즉, 행렬 S에서 중요도가 작으므로 행렬 U에서 여분의 열벡터를 깎아내어 원래의 행렬을 근사할 수 있다. 
+
+이제, SVD를 사용하여 차원감소를 해보겠다.
+
+```python
+import sys
+sys.path.append('..')
+import numpy as np
+import matplotlib.pyplot as plt
+from common.util import preporcess, create_co_matrix, ppmi
+
+test = "you say goodbye ans i say hello"
+corpus, word2id, id2word = preprocess(text)
+vocab_size = len(id2word)
+C = create_co_matrix(corpus, vocab_size, window_size = 1)
+W = ppmi(C)
+
+#SVD
+U, S, V = np.linalg.svd(W)
+
+print(C[0]) #동시 발생 행렬
+#[0 1 0 0 0 0 0]
+
+print(W[0]) #PPMI 행렬
+#[0. 1.807 0. 0. 0. 0. 0. ]
+
+print(U[0]) #SVD
+#[3.409e-01 -1.11-e-16 -1.205e-01 ...]와 같이 나오며 여기서 2차원 벡터로 줄이려면 처음의 두 원소를 꺼내기만 하면 된다. 여기서 각 단어를 2차원 벡터로 표현한 후 그래프로 그려보자
+
+for word, word2id in word2id.items():
+  plt.annotate(word, (U[word2id,0], U[word2id,1]))
+  
+  plt.scatter(U[:0], U[:1], alpha=0.5)
+  plt.show()
+```
+
+- SVD를 구할 때 실제로는 O(N^3)가 걸리므로 시간을 아끼려면 Truncated SVD와 같은 기법을 사용한다. 앞으로 scikit-learn 라이브러리의 Truncated SVD를 사용할 것이다.
+
+### PTB 데이터셋 
+
+위에서는 아주 작은 텍스트 데이터를 사용하여 결과가 잘 나오지 않았지만, 앞으로는 본격적인 말뭉치를 사용할 것인데, 그것의 주인공은 바로 **PTB(Penn TreeBank) 데이터셋**이다. 이 데이터셋은 word2vec의 발명자인 토마스 미콜로프의 웹 페이지에서 다운로드가 가능하며 아래의 특징과 같이 전처리가 적용되었다.
+
+- 희소한 단어를 <unk>으로 치환함
+- 구체적인 숫자를 N으로 대체하였다.
+
+아래와 같은 구현으로 불러와서 기존에 사용하였던 구현과 같이 데이터를 받을 수 있다
+
+```python
+import sys
+sys.path.append('..')
+from dataset import ptb
+
+corpus, word2id, id2word = ptr.load_data('train')
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
