@@ -1,6 +1,6 @@
 ---
 
-title: Deep Learning from Scratch 2
+title: Deep Learning from Scratch 2-1
 
 toc: true
 
@@ -598,16 +598,339 @@ trainer.plot()
 
 우선  CBOW모델을 확률의 관점에서 다시 살펴보는 것으로 시작하겠다. 그 전에 확률 표기법에 관해 설명하겠다. 
 
-- P (A) : A가 일어날 확률이다. 
-- P(A|B) : **사후 확률**로 B가 주어졌을 때 A가 일어날 확률이다. 
+- $P (A)$ : A가 일어날 확률이다. 
+- $P(A \mid B)$ : **사후 확률**로 B가 주어졌을 때 A가 일어날 확률이다. 
 
 위의 확률에 관한 설명을 들었으니, CBOW모델을 확률 표기법으로 기술해보자. 사후 확률로 타깃과 맥락을 설명하자면 CBOW모델은 맥락이 주어졌을 때 타깃이 일어날 확률이라고 말할 수 있다. 수식은 아래와 같이 표현할 수 있다. 
 
 <center> 
-  $P(w_t|w_(t-1),w_(t+1))$
+  $P(w_t \mid w_{t-1},w_{t+1})$
 </center>
 
-- $w_t$ : 타깃을 의미한다. 확률 표기법에 의하면 $w_(t-1), w_(t+1)$ 이 발생할 떄 $w_t$가 일어날 확률, 즉 맥락이 주어졌을 때 타깃이 발생할 확률을말하며 이는 CBOW의 모델의 근복적인 동작 방식을 나타내는 수식이라고 볼 수 있다.
-- $w_(t-1), w_(t+1)$ : 맥락을 의미한다. 
-- 
+- $w_t$ : 타깃을 의미한다. 확률 표기법에 의하면 $w_{t-1}, w_{t+1}$ 이 발생할 떄 $w_t$가 일어날 확률, 즉 맥락이 주어졌을 때 타깃이 발생할 확률을말하며 이는 CBOW의 모델의 근복적인 동작 방식을 나타내는 수식이라고 볼 수 있다.
+- $w_{t-1}, w_{t+1}$ : 맥락을 의미한다. 
+
+또한, 위의 확률 표기를 사용하여 손실함수도 표현이 가능하다. 정답 레이브을 원 핫 레이블로 표기하였으므로 교차 엔트로피 오차를 적용하는 것이 알맞은 선택이다. 따라서 기존 교차 엔트로피 식에서 $t_k$가 정답 레이블을 제외하고 나머지는 0이 된다는 것을 고려한다면 확률 표기법을 사용한 손실함수는 아래와 같이 나온다.
+
+<center>
+  $L = -logP(w_t \mid w_{t-1}, w_{t+1})$
+</center>
+
+- Negative log likelihood : 위와 같은 수식을 음의 로그 가능도라 한다. 또한 위의 수식은 샘플데이터 하나에 대한 손실함수 이므로 이를 전체로 확장한다면 아래의 수식과 같다.t
+
+<center>
+  $$L = -\frac{1}{T} \sum_{t=1}^{T} logP(w_t \mid w_{t-1}, w_{t+1})$$
+</center>
+
+- 우리가 최종적으로 바라봐야 할 목표는 위의 손실함수를 작게 만드는 것이며, 또한 위의 손실함수는 윈도우 크기가 1인 상황을 고려해서 작성한 수식이므로 윈도우 크기가 좀 더 확장된다면 P 에서 맥락의 갯수(조건)을 확장하면 그만이다. 
+
+### skip-gram 모델
+
+skip-gram 모델은 CBOW 모델과는 반대로 타깃(중앙의 단어)가 주어졌을 때 주변의 맥락(여러 단어)를 추측하는 것이다. 따라서 CBOW모델과는 달리 입력 층이 하나(타깃, 즉 중앙의 단어를 입력)이며, 출력층이 두 개 이상(맥락, 즉 중앙의 단어로부터 어떤 맥락이 나와야 적절한지 출력하는 모델임을 알 수 있다.)이다. skip-gram모델을 그림으로 나타내면 아래와 같다.
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-24.png)
+
+- 출력층이 맥락 수 만큼 있다는 것을 알 수 있다. 또한 위에서 배운 확률 표기법을 사용해 skip-gram모델을 표현하면 아래와 같다.
+
+<center>
+  $P(w_{t-1},w_{t+1} \mid w_t)$ 
+  $P(w_{t-1},w_{t+1} \mid w_t) = P(w_{t-1} \mid w_t)P(w_{t+1} \mid w_t)$
+</center>
+
+- 여기서 이 모델은 맥락들 단어 사이에 **관련성이 없다**고 가정하고 아래와 같이 분리가 가능하다.
+- 또한, CBOW 모델의 손실함수를 확률 표기법으로 표현하였으므로,  skip-gram 모델에서 또한 손실함수를 확률 표기법으로 표현할 수가 있다.
+
+<center>
+ $$L = -\frac{1}{T} \sum_{t=1}^{T} ( logP(w_{t-1} \mid w_t) + logP(w_{t+1} \mid w_t) )$$
+</center>
+
+- skip-gram모델에서 손실함수 : 각 **맥락**에서 구한 손실의 총합
+- CBOW 모델에서 손실함수 : 타깃 하나의 손실
+
+대부분의 연구 결과에서  skip-gram이 CBOW모델보다 단어 분산 표현의 정밀도에 있어서 더 좋은 결과를 내놓기 때문에  skip-gram을 사용하기도 하고 말뭉치가 커질수록 저빈도 단어나 유추 문제에서 skip-gram 모델이 뛰어난 경향이 있다고 한다. 반면 **학습 속도**에 있어서는  CBOW모델이 빠르다고 한다. 
+
+### 통계 기반 vs 추론 기반
+
+- 통계 기반 기법 : 말뭉치의 전체 통계로 부터 1회 학습하여 단어의 분산표현을 얻었다. 만약 어휘에 추가할 단어가 생긴다면 계산을 처음부터 다시해야 한다. SVD로 다시 설정하고 동시 발생 행렬도 다시 설정해야 한다.
+- 추론 기반 기법 : 말뭉치의 일부분씩 여러번 보면서 학습하였다. 만약 어휘에 추가할 단어가 생겼다면, 기존에 학습한 매개변수들을 초기값으로 다시 학습만 하면 된다. 
+
+그렇다면 각 기법에서의 분산표현은 단어의 어떤 특징을 뽑아 낸 것일까?
+
+- 통계 기반 기법에서는 단어의 유사성이 인코딩 된다고 한다. 
+- 추론 기반 기법에서는 단어의 유사성과 단어 사이의 패턴까지도 파악되어 인코딩 된다고 한다. 
+
+위의 기법에서 각각 단어의 유사성을 정량평가 해본 결과로는 두 기법에서 우열을 가릴 수가 없었다고 한다. 또한 **중요한 사실로는** 추론 기반 기법과 통계 기반 기법은 서로 **관련되어 있다고** 한다. skip-gram과 네거티브 샘플링을 이용한 모델은 모두 말뭉치 전체의 동시발생 행렬에 **특수한 행렬 분해**를 적용한 것과같다고 한다. 
+
+개인적으로 두 방법을 융합한 모델이 있지 않을까? 생각하였는데 **GloVE기법**이 있다고 한다. 
+
+### word2vec 속도개선 
+
+앞선  CBOW 모델어세는 말뭉치에 포함된 어휘가 많아 질수록 계산량이 커지므로 시간이 오래 걸리게 된다. 따라서 이번 챕터의 목표는 word2vec의 속도를 개선하는 것이 목표이다. 우리가 앞서 구현한  word2vec에서 두 가지만 추가하여 개선할 것이다. 
+
+- Embedding 계층 도입한다. 
+- 네거티브 샘플링 이라는 새로운 손실 함수를 도입한다. 
+
+이 두 가지 개선으로 실제 word2vec을 구할 수 있고, 이것을 사용해  **PTB 데이터 셋**을 가지고 학습을 수행할 수 있다. PTB데이터 셋은 실용적인 크기의 말뭉치를 가진 데이터 셋이다.
+
+CBOW 모델에서 말뭉치 안의 단어의 수가 100만개라고 한다면, 입력층와 출력층에는 각각 100만개의 뉴런이 존재하게 된. 그렇다면 어떠한 부분이 계산에 있어서 발목을 잡는 것인가?
+
+- 입력층의 원핫 표현과 가중치 행렬 Win의 곱 계산 : 어휘가 100만개라면 원소 수가 100만개인 벡터가 저장되며, **이는 메모리에 엄청난 부담을 줄것이다. 심지어 이 원핫 벡터와 가중치 행렬을 곱한다고 생각하면 자원을 심하게 낭비하게 될 것이다.** => Embedding 계층 도입
+- 은닉층과 가중치 행렬 Wout의 곱 밑 softmax 계층의 계산 : softmax 계층에서 다루는 가중치 행렬  Wout의 계산을 생각하면 결코 적은 계산량이 아니다. => 네거티브 샘플링 이라는 새로운 손실함수 도입
+
+### Embedding 계층 
+
+앞서 구현한  CBOW모델에서 입력층에서 벡터의 값이 한 원소가 1이라는 것을 제외하면 모든 값이 0이라, 여기에 가중치 행렬을 곱하게 된다면 가중치  행렬의 **특정 행을 추출**한다는 것을 알고 있다. 즉, 사실상 **행렬 곱 계산이 따로 필요없다**는 소리가 된다. 따라서 단어  ID에 해당하는 행을 추출하는 계층을  Embedding 계층이라고 한다. 아래에서 Embedding 계층을 구현해보겠다.
+
+```python
+class Embedding :
+  def __init__(self,W):
+    self.params = [W]
+    self.grads = [np.zeros_like(W)]
+    self.idx = None
+    
+  def forward(self.idx):
+    W, = self.params
+    self.idx = idx
+    out = W[idx]
+    # 행을 추출하는 것은 단순히 행렬의 인덱스 값을 명시하면 된다. 추가로 n열을 추출하고 싶다면 [:,n]
+    return out
+  
+  # Embedding 계층에서는 단순히 가중치 W의 행을 추출하는 계층이다. 따라서 역전파에서는 앞 층으로부터 전해진 기울기를 단순히 앞쪽 층으로 그대로 흘려보내면 되므로 구현은 아래와 같다. 
+def backward(self,dout):
+		dW, = self.grads
+    dW[...] = 0
+    # dW[...] = 0 은 dW의 원소를 0으로 덮어쓴다는 의미이다.
+    for i, word_id in enumerate(self.idx):
+      dW[word_id] += dout[i]  
+    return None
+```
+
+### 은닉층 이후의 계산의 문제점
+
+- 은닉층 뉴런과 가중치 행렬(Wout)의 곱
+- Softmax의 계산
+
+먼저 은닉층 뉴련과 Wout의 곱은 입력층 뉴련과 Win의 곱이 단순히  Win의 행을 출력하는 것과는 달리 실제로 계산을 수행햐야 한다. 따라서 엄청난 계산 자원과 메모리 낭비가 발생할 것이다.
+
+또한 Softmax의 식을 보면  $y_k = \frac{exp(s_k)}{\sum_{i=1}^{1000000} exp(s_i)}$ 이므로 exp 연산을  100만번 수행하게 되며 이는 엄청난 계산자원이 낭비됨을 의미한다. 따라서 Softmax를 대신할 가벼운 계산이 필요하게 된다. 
+
+### 다중 분류에서 이진 분류로(네거티브 샘플링)
+
+다중 분류 : 우리가 다뤄왔던 기존의 문제로 100만개의 단어에서 옳은 단어를 하나 고르는 문제이다.
+
+- you 와 goodbye가 맥락일 때, 타깃 단어는 무엇입니까?
+
+이진 분류 : 예/아니오로 답하는 문제로 우리가 **다중 분류 문제에서 옮겨 가야할 분류법이다.**
+
+- you와  goodbye가 맥락일 때, 타깃 던어가 say 입니까? 이런 식으로 질문을 한다면 우리는 출력층에 한 가지 뉴런만 준비하면 된다.  이렇게 이진분류를 이용한  CBOW모델을 아래 그림과 같이 된다.
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 4-7.png) 
+
+또한 출력 측의 가중치 Wout에서는 각 단어  ID의 단어벡터가 각각의 열로 저장되어 있으므로 W[:, 1]로 추출하여 은닉층과 Wout의 내적을 계산하면 최종 점수가 나오게 된다.
+
+### Sigmoid - CrossEntropyError vs Softmax-CrossEntropyError
+
+다중분류 문제 같은 경우에는 출력층에서 소프트맥스 함수를, 손실 함수로는 교차엔트로피 오차를 이용한다. 다중 분류 문제일 때 교차 엔트로피 오차의 식은 아래와 같다.
+
+<center>
+  $L = - \sum_k log t_ky_k$
+</center>
+
+
+
+이진 분류 문제 같은 경우에는 출력층에서 시그모이드 함수를, 손실 함수로는 교차엔트로피 오차를 이용한다. 이진 분류 문제일 때 교차 엔트로피 오차의 식은 아래와 같다. 즉, t=1일 때 정답이  yes이고,  t = 0 이면  No라는 의미가 된다. 또한 이는 yes와 no일 때 각각의 교차 엔트로피 오차가 다르게 출력됨을 알 수 있다.
+
+<center>
+  $L = -(tlogy + (1-t)log(1-y)$
+</center>
+
+Sigmoid 계층과 Cross Entropy Error 계층의 역전파를 계산하면  $y-t$과 같이 간단하게 나오게 된다.(y : 신경망이 출력한 확률, t: 정답 레이블)
+
+### 다중 분류에서 이진 분류로 (구현)
+
+다중분류에서 이진 분류로 넘어가는 과정에서 은닉층까지 도달하기에 있어서는 과정이 같다.
+
+- 맥락데이터를 Embedding 계층으로 입력해 Win에서 맥락단어 id값을 입력해 그 단어에 해당하는 가중치 행을 추출하여 은닉층에 도달한 데이터를 정규화 (더해서 갯수만큼 나눔)한다.
+
+여기서부터 다중 분류와 이진 분류의 차이가 발생하는데 아래에서 자세히 설명하겠다.
+
+**은닉층 이후 다중분류**
+
+- Softmax with Cross Entropy Error 계층을 사용하여 다중 분류 문제를 해결한다. 다중 분류에서 발생하는 문제는 은닉층의 뉴련과 엄청난 크기의  Wout의 MatMul 연산(이는 후에 입력층에서 Embedding 계층을 도입하여 계산량을 줄인 방법과 같은 방법으로 해결된다.)이며, 엄청난 크기으 ㅣ Softmax exp 계산이 문제가 된다.(이는 이진분류로 쓰지는  sigmoid with loss 계층을 사용하여 해결한다.)
+
+**은닉층 이후 이진분류**
+
+- 은닉층과 Wout 가중치를 곱할때, 정답에 해당하는 분산 표현(가중치 행렬)의 행을 추출(Embedding 계층에서 그 역할을 함)하여 계산량을 줄일 수 있다.
+- Softmax에서  Sigmoid계층으로 변환되어 100만가지 분류에서 하나의 확률을 추출하는 것이 아닌 특정 원소 하나를  yes or no인지 답을 내는 손실함수를 사용하여 계산량을 줄였다.
+
+추가적으로 실제 구현할 때는 은닉층 이후  Embedding 계층을 지날때 dot 연산까지 합쳐서  **Embedding dot**계층을 만들어 보기 쉽게 구현하겠다.
+
+```python
+class EmbeddingDot : 
+  def __init__(self,W) : 
+    self.embed = Embedding(W)
+    #embed는  Embedding 계층을 잠시 유지하기 위한 변수로 사용됨.
+    self.params = self.embed.params
+    # 여기서는 따로 구현한 embeddingdot 계층이 아닌 Embedding 계층의 params, grads를 사용해야 하므로 위와 같이 작성하였다.
+    self.grads = self.embed.grads
+    self.cache = None
+    # cache는 순전파 시의 계산 결과를 잠시 유지하기 위한 변수로 사용된다.
+    
+  def forward(self, h, idx) :
+    # h : 은닉층 idx : 단어 ID의 넘파이 배열
+    target_W = self.embed.forward(idx)
+    out = np.sum(target_W*h, axis = 1)
+    
+    self.cache = (h, target_W)
+    return out
+  
+ def backward(self.dout):
+  	h, target_W = self.cache
+    dout = dout.reshape(dout.shape[0], 1)
+    
+    dtarget_W = dout * h
+    self.embed.backward(dtarget_W)
+    dh = dout * target_W
+    return dh
+```
+
+
+
+### 네거티브 샘플링
+
+우리가 지금까지는 **긍정적인 대답**으로만 나올 결과를 예측하였기 때문에, 만약 부정적인 예를 입력하면 어떤 결과가 나올지는 모른다. 즉, "say"에 대한 정보는 획득했지만, "say"이외의 부정적인 예시의 대한 정보는 전혀 획득하지 못했다. 따라서 우리의 목표는 정답에 대해서는 출력을 1에 가깝게 만들고, **부정적인 예에 관해서는 출력을 0으로 만드는 것이 목표이다.**
+
+하지만, 부정적인 예시를 전부 다 하는 것은 애초에 embedding 과정을 하지 않는 것이나 다름 없기 때문에 우리는 부정적인 예시를 **몇 개만 **선택 할 것이다. 이것을 바로 **네거티브 샘플링**이라고 한다.
+
+물론 네거티브 샘플링을 할 때 무작위로 샘플링을 하는 것 보다 더 좋은 방법이 있다. 바로 말뭉치의 **통계 데이터**를 기초로 샘플링 하는 방법이다. 이 방법은 통계데이터에서 **자주 등장하는 단어를 많이 추출하고 드물게 등장하는 단어를 적게 추출하는** 방법이다. 따라서 말뭉치의 단어별 출현 횟수를 확률분포로 구한 다음에 확률분포에 따라서 샘플링을 하면 된다. 아래는 이를 구현할 코드이다. 
+
+구현 전에, UnigramSampler를 사용하는 방법을 간단하게 알고 넘어가자
+
+```python
+>>> corpus = np.array([0,1,2,3,4,1,2,3])
+>>> power = 0.75										# 제곱을 하여 확률이 낮은 원소의 출현 확률을 조금이나마 올려준다.
+>>> sample_size = 2 								# 부정적인 예를 몇 개 샘플링 할것인지 정한다.
+>>>
+>>> sampler = UnigramSampler(corpus, power, sample_size)
+>>> target = np.array([1, 3, 0])		# 즉, 여기 타겟의 원소 각각이 긍정적인 원소일때, 이것의 부정적인 예시를 출현 빈도에 따라서 뽑아낸다.
+>>> negative_sample = sampler.get_negative_sampler(target)
+```
+
+### 네거티브 샘플링의 구현
+
+위의 Unigram Sampler의 사용법을 터득하였으면, 아래 코드 구현을 차근차근 살펴보자.
+
+```python
+class NegativeSamplingLoss:
+  def __init__(self, W, corpus, power = 0.75, sample_size = 5):
+    #sample_size : 부정적 예의 샘플링 사이즈를 말한다.
+    self.sample_size = sample_size
+    self.sampler = UnigramSampler(corpus, power, sample_size)
+    # Unigram Sampler의 인스턴스를 생성하여 후에 순전파, 역전파 구현시에 네거티브 샘플링을 그때 추출한다.
+    self.loss_layers = [SigmoidWithLoss() for _ in range(sample_size +1)]
+    self.embed_dot_layers = [EmbeddingDot(W) for _ in range(sample_size +1)]
+    # 여기서는 부정적인 샘플(sample_size)와 긍정적인 샘플(1)의 갯수의 합만큼 loss와 embed 계층이 필요하므로 갯수를 이렇게 정했으며, 추가로 리스트에 계층을 저장하였다.
+    self.params, self.grads = [],[]
+    
+    for layer in self.embed_dot_layers :
+      self.params += layer.params
+      self.grads += layer.grads
+      
+	def forward(self, h, target):
+    batch_size = target.shape[0]
+    # 타깃의 행의 크기만큼 배치 사이즈를 정함
+    negative_sample = self.sampler.get_nagative_sample(target)
+    # 네거티브 샘플을 구함
+    
+    # 긍정적인 예시를 순전파
+    score = self.embed_dot_layers[0].forward(h, target)
+    correct_label = np.ones(batch_size, dtype = np.int32)
+    loss = self.loss_layers[0].forward(score, correct_label)
+    
+    # 부정적인 예 순전파
+    negative_label = np.zeros(batch_size, dtype = np.int32)
+    for i in range(self.sample_size):
+      negative_target = negative_sample[:, i]
+      score = self.embed_dot_layers[1+i].forward(h, negative_target)
+      loss += self.loss_layers[1+i].forward(score, negative_label)
+      
+      return loss 
+    
+  def backward(self, dout = 1):
+    dh = 0
+    for l0, l1 in zip(self.loss_layers, self.embed_dot_layers):
+      dscore = l0.backward(dout)
+      dh += l1.backward(dscore)
+      
+   	return dh
+```
+
+
+
+### 개선된 CBOW 모델 구현
+
+우리는 지금까지 CBOW 모델을 구현하는데 개선할 점을 Embedding 계층의 추가, Negative Sampling Loss 계층이 어떤지 알아보면서 배워왔다. 이제 이러한 계층을 실제 CBOW모델을 구현할 때 적용해보겠다.
+
+```python
+import sys
+sys.path.append('..')
+import numpy as np
+from commong.layers import Embedding
+# Embedding 계층 추가
+from ch04.negative_sampling_layer import NegativeSamplingLoss
+# Negative Sampling Loss 계층 추가
+
+class CBOW:
+  def __init__(self, vocab_size, hidden_size, window_size, corpus):
+    V, H = vocab_size, hidden_size
+    
+    W_in = 0.01 * np.random.randn(V, H).astype('f')
+    W_out = 0.01 * np.random.randn(V, H).astype('f')
+    
+    self.in_layers = []
+    for i in range(2 * window_size):
+      layer = Embedding(W_in)
+      self.in_layers.append(layer)
+    self.ns_loss = NegativeSamplingLoss(W_out, corpus, power = 0.75, sample_size = 5)
+    
+    layers = self.in_layers + [self.ns_loss]
+    self.params, self.grads = [], []
+    for layer in layers:
+      self.params += layer.params
+      self.grads += layer.grads
+      
+    self.word_vecs = W_in
+    # 단어의 분산표현에 접근할 수 있도록 할당한다. 
+  
+  def forward(self, contexts, target):
+    h = 0 
+    for i , layer in enumerate(self.in_layers):
+      h+=layer.forward(context[:, i])
+    h*= 1/len(self.in_layers)
+    loss = self.ns_loss.forward(h,target)
+    return loss 
+  
+  def backward(self, dout = 1):
+    dout = self.ns_loss.backward(dout)
+    dout *= 1/len(self.in_layers)
+    for layer in self.in_layers:
+      layer.backward(dout)
+    return None
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
