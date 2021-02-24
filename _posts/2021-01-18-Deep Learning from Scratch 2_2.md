@@ -318,43 +318,6 @@ RNN을 사용하여 언어모델을 구현하는 것이 최종목표이다. 이�
   $L = frac{1}{T}(L_0 + L_1 + ... + L_{T-1})$
 </center>
 
-## RNNLM 모델의 구현과 평가
-
-### RNNLM 모델의 구현
-
-```python
-import sys
-sys.path.append
-import numpy as np
-from common.time_layers import *
-
-class simpleRnnlm:
-  def __init__(self, vocab_size, wordvec_size, hidden_size):
-    V, D, H = vocab_size, wordvec_size, hidden_size
-    rn = np.random.randn
-    
-    embec_W = (rn(V,D)/100).astype('f')
-    rnn_Wx = 
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
