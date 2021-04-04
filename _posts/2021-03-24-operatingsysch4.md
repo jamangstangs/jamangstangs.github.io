@@ -229,7 +229,291 @@ multiplex : 하나의 회선을 쪼갬
 - CPU bound thread라면 many to many model 사용
 - I/O bound thread라면 one-to-one model 사용
 
+### 이러한 모델을 사용하는 이유
 
+user level thread 와 kernel level thread의 차이로 인해서 사용한다. Process scheduler에서는 kernel level thread를 schedule하지 user level thread를 schedule하지 않는다. 그래서 OS의 관점에서는 kernel level thread만 신경쓰는 것이다. 
+
+OS가 kernel thread를 다음 실행 kernel로 선택하면, kernel level thread는 그에 대응하는 user level thread를 실행시키는 것이다. user level thread에 문제가 생기면 알 방법이 없다. 
+
+그래서 우리가 user level thread와 kernel level thread를 엄밀하게 나누는 이유이다.
+
+## Thread Libraries
+
+Thread library는 OS가 프로그래머에게 **Thread를 생성하고 관리**할 수 있도록 하는 API이다. 우리가 지금까지 배운 커널의 종류는 user, kernel level이 있으며, **thread library를 구현하는 2가지 주요한 방법**이 있다.
+
+- 모든 Library를 전적으로 user space에 제공하는 것이다.
+  - 여기서 만들어지는 thread는 user level thread이다.
+  - 이 경우에 OS는 thread library에 뭐가 있는지 알 수 없다.
+  - 또한 kernel mode로 갈 수 없다.
+  - Thread switching이 일어날 수 없다.
+  - kernel level thread가 하나라서 user level thread가 하나 멈추면 나머지도 다 멈춘다.
+- OS에 의해 직접 구현되는 kernel level library
+  - User level thread보다 느리다. 
+
+요즘 쓰이는 3개의 thread library는 아래와 같다.
+
+- POSIX Pthreads : user level 혹은 kernel level library를 제공한다.
+  - **구현되어 있는 것이 아닌 지시(Specification)만 해준 것이다.**
+  - UNIX 운영체제에서 흔하다.(Solaris, Linux, Max OS X), pintOS에서 ㄷ쓴다. 
+- Win32 threads : 
+- Java threads : 
+
+### Pthreads
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 8.31.51.png" style="zoom:50%;" />
+
+- application : 1 에서  input number까지의 합을 구해준다.
+- int sum : 전역변수로, 모든 thread가 접근이 가능하다.
+  - <img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 8.35.48.png" style="zoom:50%;" />
+  - 위의 그림은 multi-threaded 모델이며, 하나의 프로세스이며 main thread에 의해 돌아가는 프로그램이다. 여기서 한 프로세스 안에서 thread들을 만들려고 하는 것이다. 
+  - 내가 만약 main thread에서 결과를 출력하고 싶고 다른 thread가 합연산을 실행하게 하고 싶다.  
+  - 그렇다면 결과는 main thread로 와야한다. 그래서 전역변수(위의 그림에서 data 부분)를 사용해서 다른 thread가 전역변수에 답을 저장하고 main thread가 이를 참조한다.  
+- void *runner(void *param) : thread function의 포인터이다. (자바 version thread와 다른 부분)
+- int main(int argc, char *argv[]) 
+  - [0] : application name -> tid에 들어감
+  - [1] : input number -> attr에 들어감.
+- if 구문 : error handler이다. 
+- pthread attr init(&attr) : default attribute를 받는다. 
+- pthread create(&tid,&attr,runner,argv[1]) : **thread를 만들고 지정한 function을 실행시킨다.**
+- pthread join(tid,NULL) : thread가 종료될때까지 기다린다. 
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 8.53.35.png)
+
+다루고 싶은 thread가 여러개면, 추가로 코딩해준다. 
+
+### Window Threads
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 8.54.38.png)
+
+- 디테일은 Pthread와 다르지만, 기본적인 아이디어는 같다. 
+- DWORD Sum : 전역변수로 선언이 됨. 기본적인 아이디어는 pthread 참고해라.
+- Summation : thread Function이다. 
+- Param : 파라미터. Summation에 전달이 된다. 각각의 구현은 주석을 자세히 보면 된다. 
+- if ThreadHandle != NULL : create되면 무조건 닫고, sum을 print한다.
+
+### Java Thread Example
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 9.05.17.png)
+
+- Thread Function이라고 명시하기 위해 implement Runnable 
+
+```java
+public interface Runnable
+{
+	public abstract void run();
+}
+```
+
+## Implicit Threading
+
+- Explicit Threading : Thread library를 이용하여 thread를 구현해봤는데, 이것은 **explicit threading**이다. 
+- Implicit Threading : **하지만, thread가 간단해서 노력을 들이지 않고 간단하게 thread를 만들수 있는 방법이 Implicit Threading이다.**
+
+multiple thread가 필요한 코드를 명시만 하고 선언만 하면 OS 또는 compiler가 multi thread에서 돌릴 수 있는 다른 코드를 만들어 실행시켜주고 main thread에 리턴해준다.
+
+따라서 explicit threading과 다르게 pid이나 static을 신경쓸 필요가 없다.
+
+아래와 같이 3가지 implicit threading 방식이 있다.
+
+### Thread Pool
+
+Implicit threading의 직관적인 아이디어이다. Pool이 가지는 의미는 무엇의 collection이다. 이와 같이 **Thread pool은 사전에 생성된 thread들을 의미한다.** 
+
+Kernel thread나 User thread가 새로운 Thread를 만들려고 한다면 OS가 충분한 Resource가 있는지 확인하고 thread에게 resource를 할당한다. 만약 삭제된다면 OS는 모든 Thread 정보를 삭제해야하므로 시간이 오래 걸린다. 이것을 하는 것 보다는 thread를 생성할 때 **사전에 만들어 놓은 thread**를 가져와서 사용하면 더 빠르고 효율적일 것이다. 그리고 사용이 끝나면 Thread pool에 그대로 돌려주고. 장점은 아래와 같다.
+
+1. 사전에 생성해놓아 생성하는데 기다리는 시간이 절약되어 시간도 절약하고 효율적이다.
+2. thread pool에 존재할 수 있는 thread의 수를 제한을 걸어 동시에 사용되는 thread의 수를 제한할 수 있다. 
+
+![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 10.28.29.png)
+
+Window API같은 경우에는 main thread에 의해 관리 될 필요가 없다. 
+
+### OpenMP
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 10.33.05.png" style="zoom:50%;" />
+
+compiler directives의 set이다. 따라서 컴파일러 지시문을 사용한다.
+
+공유 메모리 환경에서 parallel programming을 위해 서포트한다. 
+
+parallel region을 지정하여 parallel하게 실행될 code블럭을 명시한다. 
+
+- #pragma omp parallel : core의 수에 따라서 최대한 많은 수의 thread를 생성한다. 
+
+  - 코어가 4개이면 4개의 thread가 생성된다. (main thread포함)
+
+- #pragma omp parallel for 
+
+  ​	for(i = 0; i<N; i++){
+
+  ​		c[i] = a[i] + b[i];	
+
+  }						: for loop안에 있는 작업을 쪼개서 각 thread에서 실행시킨다. 
+
+이렇게 compiler directives를 사용하여 간단하게 threading을 할 수 있다. 
+
+### Grand Central Dispatch (GCD)
+
+Mac에서 쓰이는 시스템이다. 기본 개념은 thread pool과 비슷하다. 
+
+parallel block에 **^**을 사용하여 식별할 수 있다.
+
+```C
+ˆ{ printf("I am a block"); }
+```
+
+여기서 GCD는 dispatch queue에 block들을 놓아 스케쥴링한다.  이때 Dispatch queue의 종류는 아래와 같이 두 개로 나뉜다. 
+
+- serial dispatcher: Block을 FIFO형식으로 지워진다. 따라서 한 블럭이 끝날 때 까지 다른 블럭을 종료할 수 없으므로 이로인해 concurrency를 보장할 수 없다. 
+- concurrent dispatcher : Block을 FIFO형식으로 지우지만, 어떤 블럭들을 동시에 지워진다. 따라서  concurrrent running을 보장해야 한다면 concurrent dispatcher를 사용한다. 
+
+## Threading Issues
+
+### Semantics of fork() and exec()
+
+process 에서 **fork()**를 배울 때 완전히 **parent process를 복사하는 것**이라고 배웠다. 
+
+그렇다면, thread 하나가 fork()를 하면, 새로운 process는 모든 thread를 복사할 까 아니면 새로운 process가 thread 하나만 복사해서 single threaded가 될까?
+
+- exec() : fork()뒤에 새로운 process에서 실행시키면 forked process에 다른 process를 불러온다.(child process)
+  - **fork()뒤에 바로 exec() : 모든  thread를 복사할 필요가 없다.** 새로운 process를 만드는 것이므로.
+  - **fork()뒤에 바로 exec()하지 않음 : 모든  thread를 복사해야 한다.** 부모를 베끼기 위해서
+
+몇몇 UNIX system은 두 가지의 fork()를 제공한다.
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 11.26.06.png" style="zoom:50%;" />
+
+- 프로세스 전체를 복사한다.
+- 프로세스 전채를 복사하지 않는다. 
+
+### Signal Handling
+
+- Signals :  UNIX system에서 process(inter process혹은 kernel-process)에서 특정한 이벤트가 발생했음을 알려주는데 사용이 된다.  
+- Signal Handler : signal을 처리하기 위해 사용이 된다. 
+  1. Signal이 특정 이벤트에 의해 발생함
+  2. process로 전달이 된다. 
+  3. signal이 두 가지의 signal handler에 의해 처리 된다. 
+     - Default signal handler : 커널이 signal을 handling할 때 기본적으로 작동시키는 signal handler이다. 
+     - User-defined signal handler : default를 override해서 처리한다.
+- Single Threaded
+  - single threaded program에 대해서는 signal은 process에 전달이 된다. 
+- Multi Threaded : 4개의 옵션이 존재한다. 
+  - signal이 적용될 thread에 전달이 된다. (signal이 전달될 target thread를 알아야 한다.)
+  - 프로세스의 모든 thread에 signal을 전달한다.
+  - 프로세스의 특정 **thread들**에게 전달한다. 
+  - 프로세스에서 모든 signal을 받을 thread를 할당한다. 
+
+In UNIX system.
+
+```C
+kill(pid t pid, int signal) // process에게 signal 전달
+pthread kill(pthread t tid, int signal) // 특정 thread에게 전달한다. 
+```
+
+### Thread Cancellation
+
+**아직 Thread가 완료되지 않았음에도 종료하라는 것이다. **Thread가 종료하라는 Signal을 받으면 thread는 취소되고 종료된다. 
+
+종료될 Thread를 **Target Thread라고 한다.**
+
+두 가지 접근 방법이 있는데
+
+- Asynchronous cancellation : 다른 thread를 신경쓰지 않고 즉시 종료한다.
+- Deferred cancellation : Target Thread가 주기적으로 종료해야 하는지 체크하게 허락한다. 그래서 계획적으로 처리된다. 종료 준비가 될때가지 실행시키다가 scheduler가 종료시킨다. 
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-30 오후 11.52.23.png" style="zoom:50%;" />
+
+- OFF mode : cancel될 수없다.
+- Deferred  : 보안문제로 인해 이 모드가 default이다. 
+  - cancellation은 thread가 cancellation point에 도달했을 때만 일어난다.
+  - pthread_testcancel() -> **cleanup handler**가 호출된다. 
+- Asynchronous : cancel 가능하다. 
+
+cancellation이 불가능하면, cancellation은 thread cancellation이 가능해질 때 까지 보류한다.
+
+**Linux 시스템에서 thread cancellation은 signal에의해 관리된다.** 
+
+### Thread-Local Storage
+
+한 프로세스 내에서 Global data는 모든 thread가 공유한다.  Application에 따라서 각각의 Thread가 특정 데이터의 복사본을 가지고 있어야 할 수도 있다. 이때 **Thread-local storage(TLS)**가 **data area**의 복사본을 각각의 **thread가 가질 수 있게 해준다**.
+
+Thread creation 과정이 없다면 유용하다. -> 
+
+Local Variables와는 다른점이 있는데
+
+- **Local variables** : 하나의 function이 실행되고 있을 때 visible하다. (local function이 return하면 지역변수를 볼 수 없다.) -> **Function 내부의 지역변수**
+- **TLS data** : function call을 뛰어넘어 visible하다. (TLS는 **Thread**내부의 function이 있는 어느 곳에서든지 접근이 가능하다. 따라서 Thread 내부에서만 공유하는 변수라고 생각하자.) -> **Thread의 지역변수**
+
+### Scheduler Activations
+
+OS는 user level thread는 모르고 kernel level thread만 신경써도 된다고 했다. 아래와 같은 상황을 생각해보자. 1개의  level thread가 block되었다고 가정하자.
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 7.32.10.png" style="zoom:50%;" />
+
+- 1:1 model : user thread와 kernel thread 사이의 추가적인 알림을 요구하지 않는다. 
+  - kernel level thread - user level thread 이 한 쌍이 막혀도 다른 thread의 상황을 몰라도 된다.
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 7.32.15.png" style="zoom:50%;" />
+
+- M:1 model : User thread와 kernel thread 사이의 추가적인 알림을 요구하지 않는다. 
+  - kernel level thread - user level thread 하나가 block되면 entire process가 block되기 때문이다. 
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 7.39.41.png" style="zoom:50%;" />
+
+- M:M model and Two-level model : 하나의 kernel thread가 block되면, 그 kernel thread를 사용하고 있던 user level thread를 다른 kernel에 할당을 해야한다. 그것을 지원하려면 user level thread가 어떤 kernel level thread가 실행이 가능한지 알아야 한다. 
+
+  - Schedule activation은 user level thread에게  upcall signal을 보낸다.
+  - 이것이 가능하게 하기 위해 **Thread Library와 kernel therad사이에** intermediate data structure인 **Lightweight process(LWP)를 둔다.** 
+  - User-thread-library입장에선 LWP가 user thread를 돌릴 수 있는 장소처럼 보이고, OS scheduler가 LWP에 processor를 할당한다.  (core를 할당해준다.)
+    - User-thread-library -> LWP에 user level thread할당
+    - OS scheduler -> LWP에 processor할당.
+  - 각각의 LWP는 kernel thread에 붙어있는다. 
+  - LWP는 CPU 코어의 개수만큼 생성된다. 
+
+  ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 7.50.25.png)
+
+  - Scheduler activation scheme은 upcall procedure이 가능하게 해준다. 
+    - upcall : application이 block되려고 할 때 발생한다.
+    - upcall : kernel과 User thread library에 있는 upcal handler 사이의 통신을 위해서 사용된다.
+
+  1. blocking system call이 발생하면 thread library로 가서 kernel로 간 다음에 
+  2. Kernel이 upcall을 하여 thread가 block될 것을 Thread library에 알려준다. 
+  3. **block된 LWP와 user process를 Thread library밖으로 보낸다.** 
+  4. 새로운  LWP가 생성되어 Thread library와 연결이 된다.
+     - Blocking이 user level thread에서 발생하면 **LWP와 kernel thread와 user thread**는 같이 지정되어 thread library 밖으로 나가게 되고 다른 user thread와 LWP를 연결하여 kernel thread를 할당한다. 
+
+## Operating System Examples
+
+### Window Thread
+
+Window에서는 one to one mapping 구현한다. (**지금까지 해온 Scheduling이 redundant하다고 느낌. 퍼포먼스 때문에 그렇다. 그 당시에는 computer가 빠르지 않아서 공학자들이 시스템을 최대한 많이 쓰려고 그렇게 scheduling이 필요했고, 기술이 발전하면서 core가 많아지니까 요즘은 그냥 one-one model을 쓴다.**) 각각의 thread는 다음을 포함한다. -> 간단한 mechanism때문에  one-one model을 쓴다고 알고 있자.
+
+- Thread id
+- **Register set** : processor의 state를 나타내는.
+- serperate user and kernel **stacks** : thread가 user mode or kernel mode에서 실행될 때를 나누기 위해서.
+- **Private data storage area** : run time libraries와 dynamic link libraries를 위해 사용 됨.
+
+#### CONTEXT = PROGRAM COUNTER
+
+**Context : register set, stacks, private storage area 이 셋이 thread의 context이다.**
+
+**Process counter = program running의 context**
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.16.54.png" style="zoom:50%;" />
+
+- ETHREAD :   **Thread가 속한 Process의 포인터**와 **KTHREAD의 포인터**를 포함한다.
+- KTHREAD : **scheduling and synchronization info**, **kernel-mode stack**, **TEB의 포인터**를 포함한다
+- TEB : **thread id**, **user-mode stack**, **thread-local storage**을 포함한다.
+
+### Linux Threads
+
+리눅스 시스템은 process나 thread보다는 **task**라는 용어를 사용한다.
+
+Thread 생성은  Clone()을 **통해** 생성된다. clone()을 할 때 다음과 같이 parent와 child tasks 사이의 얼마나 많은 정보를 공유할지 정하는 flags를 전달한다.
+
+<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.24.17.png" style="zoom:50%;" />
+
+- fork()가 호출되면 새로운 task가 생성된다. 
 
 
 
