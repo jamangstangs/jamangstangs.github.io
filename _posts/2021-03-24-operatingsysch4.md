@@ -519,5 +519,7 @@ Thread 생성은  Clone()을 **통해** 생성된다. clone()을 할 때 다음�
 
 
 
+-Reference-
 
+Abraham Silberschatz, Peter B. Galvin, Greg Gagne의 『Operating System Concept 9th』
 

@@ -309,7 +309,9 @@ process : 실행중인 프로그램을 말하며, **program이 main memory에 �
 
 
 
+-Reference-
 
+Abraham Silberschatz, Peter B. Galvin, Greg Gagne의 『Operating System Concept 9th』
 
 
 

@@ -418,5 +418,7 @@ OS는 hardware에서 사용 가능하도록 만들어져야한다. 그래야 har
 
 
 
+-Reference-
 
+Abraham Silberschatz, Peter B. Galvin, Greg Gagne의 『Operating System Concept 9th』
 
