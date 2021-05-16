@@ -1,5 +1,5 @@
 ---
- title: Computer Networking 2
+title: Computer Networking 2
 
 toc: true
 

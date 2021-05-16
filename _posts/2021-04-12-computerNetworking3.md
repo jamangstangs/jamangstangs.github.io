@@ -1,6 +1,17 @@
+---
+title: Computer Networking 3
+
+toc: true
+
+use_math: true
+
+categories:
+
+ - Computer Networking
+
+---
+
 ##     Transport Layer
-
-
 
 ### 목표
 
