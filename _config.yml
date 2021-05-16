@@ -95,9 +95,9 @@ analytics:
 author:
   name             : "Jamang Song"
   avatar           : "/assets/images/profile/profile.jpg"
-  bio              : "Git pages for Portfolio<br>Roadmap to becomming a Programmer"
+  bio              : "Git pages for Portfolio"
   location         : "Seoul"
-  email            : "jmsong3807@gist.ac.kr"
+  email            : "jmsong3807@gm.gist.ac.kr"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
