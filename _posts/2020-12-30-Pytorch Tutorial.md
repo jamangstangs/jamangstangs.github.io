@@ -137,7 +137,7 @@ a.requires_grad_(True)
 print(a.requires_grad)  #True
 b = (a*a).sum()
 print(b.grad_fn)        #<SumBackward0 object at 0x7f843916f470>
-```  
+```
 
 ### 변화도(gradient)
 이제 역전파를 해보겠다. 그 전에 autograd코드에서 구현했던 x,y,z연산을 정리해보겠다.
@@ -149,7 +149,7 @@ out.backward()
 print(x.grad)
 #tensor([[4.5000, 4.5000],
 #        [4.5000, 4.5000]])
-```  
+```
 
 torch.autograd는 벡터-야코비안 곱을 구하는 엔진이다. 아래에서는 벡터-야코비안 곱의 예제를 다뤄보겠다.
 ```python
@@ -174,7 +174,7 @@ print(x.requires_grad)
 y = x.detach()
 print(y.requires_grad)
 print(x.eq(y).all())    #객체 비교 연산
-```  
+```
 
 ## 신경망
 위에서 autograd를 통해서 기본 연산을 Pytorch를 이용해 하는 방법을 알아보았다.
@@ -307,7 +307,7 @@ output = net(input)
 loss = criterion(output.target)
 loss.backward()
 optimizer.step()
-```  
+```
 
 ## 분류기 학습하기
 ### 데이터는 어디서 가져오나?

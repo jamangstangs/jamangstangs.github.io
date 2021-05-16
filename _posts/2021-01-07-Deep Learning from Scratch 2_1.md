@@ -264,7 +264,7 @@ def most_similar(query, word2id, id2word, word_matrix, top=5):
 
 위에서 대부분의 원소가 0이라 함은 대부분의 정보의 중요도가 낮다는 의미이므로, 우리는 벡터의 차원을 줄이는 방법을 고안하게 되었다. 핵심은 **중요한 정보는 최대한 유지** 하는 것이다. 직관적인 예를 들면 아래와 같다.
 
-![2-8](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 2-8.png)
+![2-8](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 2-8.png)
 
 - 왼쪽은 데이터 점들을 2차원 좌표에 표시한 모습이다.
 
@@ -352,7 +352,7 @@ corpus, word2id, id2word = ptr.load_data('train')
 
 추론 기반 기법에서는 추론이 주된 작업이다. 쉽게 말해서 아래와 같이 주변 단어(맥락)이 주어졌을 때 빈 칸에 무슨 단어가 들어가는지 추측하는 작업이다. 이러한 추론 문제를 반복적으로 풀어보면서 단어의 출현 패턴을 학습하는 것이다. 이와 같은 기법을 모델을 이용해 구현한다고 하면, 아래와 같은 전체 그림이 나온다.
 
-![3-3](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-3.png)
+![3-3](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-3.png)
 
 - 모델은 맥락정보를 입력받아 각 단어의 출력 확률을 출력한다. 이러한 모델로 올바른 추측을 내놓을 수 있도록 학습시키는 것이 추론 기반 기법의 전체적인 그림이다. 
 - 추론 기반 기법도 통계 기반 기법처럼 **단어의 의미는 주변 단어에 의해 형성된다** 라는 가설에 기초한다. 
@@ -368,7 +368,7 @@ corpus, word2id, id2word = ptr.load_data('train')
 
 - 원 핫 벡터 : 총 어휘 수 만큼의 원소를 갖는 벡터에, 인덱스가 단어 ID와 같은 원소를 1로 설정하고 나머지는 모두 0으로 만들면 원 핫 벡터이다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-6.png)
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-6.png)
 
 이와 같이 단어를 고정 길이 벡터로 변환하면, 모든 단어가 동일한 길이의 벡터를 가지게 되며, 이는 다시말해 **단어를 벡터로 나타낼 수 있고, 뉴런의 수를 고정할 수 있다는 의미이다.** 여기서 주의할 점은 편향이 없는 완전연결 계층은 **행렬의 곱과 같다는 점이다.** 여기까지의 이야기를 코드로 작성해보겠다. 
 
@@ -383,7 +383,7 @@ print(h)
 
 - 하지만 원 핫 벡터로 표현한 완전연결 계층에서는 편향이 없다면 **행렬의 곱** 연산이 된다는 것은 앞에서 설명을 했다. 따라서 이는 아래의 그림으로 표현하자면 다음과 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-8.png)
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-8.png)
 
 - 이와 같이 가중치에서 **행의 값을 뽑아내는 것과 같다.** 하지만, 단순히 가중치의 행을 뽑아내는 데 행렬의 곱을 사용한다는 것은 비효율적이지 않나? 이는 word2vec에서 개선할 예정이다.
 
@@ -391,7 +391,7 @@ print(h)
 
 CBOW 모델은 맥락으로부터 타깃을 추측하는 용도의 신경망이다. (타깃은 중앙 단어이고, 그 주변 단어들이 맥락이다.) 아래는 CBOW 모델의 신경망 구조를 나타낸 그림이다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-9.png)
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-9.png)
 
 - 입력층에서 은닉층 : 입력층이 2개이며, 두 개 다 같은 완전연결계층(Win)에 의해서 처리가 된다.
 - 은닉층에서 출력층 : 앞선 계층에서 처리한 완전연결계층(Win)과는 다른 완전연결계층(Wout)이 처리한다. 
@@ -405,7 +405,7 @@ CBOW 모델은 맥락으로부터 타깃을 추측하는 용도의 신경망이�
 
 - 출력층 : 출력층의 뉴런은 총 7개이며, 뉴런 하나하나가 각각의 단어가 대응한다는 것이다. 또한 출력층의 뉴런 각각은 점수를 뜻하며, 이 값이 높을수록 대응하는 단어의 출현 확률도 높아진다. 정확한 확률을 얻기 위해서는 Softmax 함수를 사용해야 한다. 
 
-  ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-10.png)
+  ![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-10.png)
 
 - Win : 이 가중치의 각 행에는 해당 단어의 **분산 표현(색의 RGB표현과 같이 단어를 나타내는 벡터 표현)** 임을 알 수 있
   다. 즉, 학습을 진행할 수록 맥락에서 출현하는 단어를 잘 추측하는 방향을 분산 표현들이 갱신됨을 알 수 있다. 또한 이렇게 해서 얻은 분산 표현에는 **단어의 의미** 또한 녹아 들어있다고 한다.
@@ -448,7 +448,7 @@ CBOW 모델에서의 학습은 학습시 배운 말뭉치로부터 배우기 때
 
 다시 앞서 본 신경망의 학습에 대해서 생각해보다. 우리는 다중 클래스 분류를 진행하므로 **소프트 맥스**와 **교차엔트로피**오차만 이용하면 된다. (교차 엔트로피에서는 정답 데이터만 유의미한 오차값을 출력하므로 다중 클래스 분류에 효과적이다.) 즉, 소프트맥스 함수를 이용하여 출력층에서 나온 점수를 확률로 변환하고, 그 확률과 정답 레이블로부터 교차엔트로피를 구한 후 그 값을 손실로 사용해 학습을 진행하면 된다. 우리가 구현할 대략적인 신경망의 모습은 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-14.png)
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-14.png)
 
 - Win : 각 **행에** 단어의 분산표현이 들어가있다.
 - Wout : 각 **열에** 단어의 분산표현이 들어가있다. 
@@ -628,7 +628,7 @@ trainer.plot()
 
 skip-gram 모델은 CBOW 모델과는 반대로 타깃(중앙의 단어)가 주어졌을 때 주변의 맥락(여러 단어)를 추측하는 것이다. 따라서 CBOW모델과는 달리 입력 층이 하나(타깃, 즉 중앙의 단어를 입력)이며, 출력층이 두 개 이상(맥락, 즉 중앙의 단어로부터 어떤 맥락이 나와야 적절한지 출력하는 모델임을 알 수 있다.)이다. skip-gram모델을 그림으로 나타내면 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-24.png)
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 3-24.png)
 
 - 출력층이 맥락 수 만큼 있다는 것을 알 수 있다. 또한 위에서 배운 확률 표기법을 사용해 skip-gram모델을 표현하면 아래와 같다.
 
@@ -724,7 +724,7 @@ def backward(self,dout):
 
 - you와  goodbye가 맥락일 때, 타깃 던어가 say 입니까? 이런 식으로 질문을 한다면 우리는 출력층에 한 가지 뉴런만 준비하면 된다.  이렇게 이진분류를 이용한  CBOW모델을 아래 그림과 같이 된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 4-7.png) 
+![](/assets/images/post/2021-01-11-Deep Learning from Scratch2/fig 4-7.png) 
 
 또한 출력 측의 가중치 Wout에서는 각 단어  ID의 단어벡터가 각각의 열로 저장되어 있으므로 W[:, 1]로 추출하여 은닉층과 Wout의 내적을 계산하면 최종 점수가 나오게 된다.
 
@@ -741,8 +741,9 @@ def backward(self,dout):
 이진 분류 문제 같은 경우에는 출력층에서 시그모이드 함수를, 손실 함수로는 교차엔트로피 오차를 이용한다. 이진 분류 문제일 때 교차 엔트로피 오차의 식은 아래와 같다. 즉, t=1일 때 정답이  yes이고,  t = 0 이면  No라는 의미가 된다. 또한 이는 yes와 no일 때 각각의 교차 엔트로피 오차가 다르게 출력됨을 알 수 있다.
 
 <center>
-  $L = -(tlogy + (1-t)log(1-y)$
+  $L = -tlogy + (1-t)log(1-y)$
 </center>
+
 
 Sigmoid 계층과 Cross Entropy Error 계층의 역전파를 계산하면  $y-t$과 같이 간단하게 나오게 된다.(y : 신경망이 출력한 확률, t: 정답 레이블)
 
@@ -800,7 +801,7 @@ class EmbeddingDot :
 
 우리가 지금까지는 **긍정적인 대답**으로만 나올 결과를 예측하였기 때문에, 만약 부정적인 예를 입력하면 어떤 결과가 나올지는 모른다. 즉, "say"에 대한 정보는 획득했지만, "say"이외의 부정적인 예시의 대한 정보는 전혀 획득하지 못했다. 따라서 우리의 목표는 정답에 대해서는 출력을 1에 가깝게 만들고, **부정적인 예에 관해서는 출력을 0으로 만드는 것이 목표이다.**
 
-하지만, 부정적인 예시를 전부 다 하는 것은 애초에 embedding 과정을 하지 않는 것이나 다름 없기 때문에 우리는 부정적인 예시를 **몇 개만 **선택 할 것이다. 이것을 바로 **네거티브 샘플링**이라고 한다.
+하지만, 부정적인 예시를 전부 다 하는 것은 애초에 embedding 과정을 하지 않는 것이나 다름 없기 때문에 우리는 부정적인 예시를 **몇 개만**선택 할 것이다. 이것을 바로 **네거티브 샘플링**이라고 한다.
 
 물론 네거티브 샘플링을 할 때 무작위로 샘플링을 하는 것 보다 더 좋은 방법이 있다. 바로 말뭉치의 **통계 데이터**를 기초로 샘플링 하는 방법이다. 이 방법은 통계데이터에서 **자주 등장하는 단어를 많이 추출하고 드물게 등장하는 단어를 적게 추출하는** 방법이다. 따라서 말뭉치의 단어별 출현 횟수를 확률분포로 구한 다음에 확률분포에 따라서 샘플링을 하면 된다. 아래는 이를 구현할 코드이다. 
 
@@ -948,8 +949,9 @@ class CBOW:
 - 맥락이 왼쪽 두 단어만을 의미하는 확률 모델이다.
 
 <center>
-  $L = -logP(w_t \mid w_{t-2}, w_{t-1}$
+  $L = -logP(w_t \mid w_{t-2}, w_{t-1})$
 </center>
+
 
 
 - 위의 확률 모델을 사용해 손실 함수를 나타낸 수식이다. 
@@ -972,8 +974,9 @@ class CBOW:
 #### 확률의 곱셈정리
 
 <center>
-  $P(A,B) = P(A \mid B)P(B)
+  $P(A,B) = P(A \mid B)P(B)$
 </center>
+
 
 
 - P(A,B): A랑 B 모두 일어날 확률을 의미한다. 또한 이때 사후 확률에서 조건의 순서를 바꿔도 값은 똑같이 나온다. 

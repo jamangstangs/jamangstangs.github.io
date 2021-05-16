@@ -16,7 +16,7 @@ categories:
 
 #### Host
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.16.56.png" style="zoom:33%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.16.56.png" style="zoom:33%;" />
 
 인터넷에는 network의 기기들, 요소들이 많이 붙어있지만, 제일 마지막에 붙어있는 end system, end node들을 **host**라고 부른다.
 
@@ -24,7 +24,7 @@ Host에서 사용자들이 network application을  사용하여
 
 #### Packet Switches 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.03.png" style="zoom:33%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.03.png" style="zoom:33%;" />
 
 **host**들이 보낸 **packet**(일단 데이터의 묶음이라고 생각하자.)을 다른 node들로 **전달하는 역할**을 수행하며 종류는 다음과 같다.
 
@@ -33,7 +33,7 @@ Host에서 사용자들이 network application을  사용하여
 
 #### Communication Links
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.21.png" style="zoom:33%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.21.png" style="zoom:33%;" />
 
 host와 packet switches를 연결한 선을 의미하여 다양한 종류의 링크가 존재한다. 눈에 보이지 않는 링크가 있을 수 있으며 종류는 다음과 같다.
 
@@ -44,7 +44,7 @@ host와 packet switches를 연결한 선을 의미하여 다양한 종류의 링
 
 #### 네트워크
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.31.png" style="zoom: 33%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.17.31.png" style="zoom: 33%;" />
 
 다양한 종류의 기기들이 모여서 **네트워크**라고 부른다. 
 
@@ -62,13 +62,13 @@ host와 packet switches를 연결한 선을 의미하여 다양한 종류의 링
 
 #### 인터넷의 정의 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.15.06.png" style="zoom: 50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.15.06.png" style="zoom: 50%;" />
 
 다양한 network들을 서로 연결된 ISP를 통해 묶은 것을 의미한다. 
 
 #### Protocol
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.32.47.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.32.47.png" style="zoom:50%;" />
 
 Host끼리 data를 주고 받으려면 **약속**이 필요하다. 어떤 형식으로 주고받을지, 어떻게 주고 받을 것인지, 언제 주고 받을 것인지에 대한 약속을 **Protocol**이라고 한다.
 
@@ -92,7 +92,7 @@ Host끼리 data를 주고 받으려면 **약속**이 필요하다. 어떤 형식
 - order : 그런 바이트의 순서에 대한 규칙
 - Actions : 메세지 송수신 과정해서 취해야할 행동.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.47.40.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 7.47.40.png" style="zoom:50%;" />
 
 데이터를 교환하고 싶은 연결을 서버에 요청해서 서버가 연결을 응답하고, 컴퓨터가 데이터를 요청하면 서버가 그 데이터를 보내준다. 
 
@@ -104,13 +104,13 @@ Host끼리 data를 주고 받으려면 **약속**이 필요하다. 어떤 형식
 
 ### Network Edge
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.09.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.09.png" style="zoom:50%;" />
 
 - Host : clients 뿐만 아니라 server까지 의미한다. 
 
 ### Access network
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.01.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.01.png" style="zoom:50%;" />
 
 이런 **host**들과 **network core**를 **연결**해주는 network를 **Access network**라고 한다.
 
@@ -118,7 +118,7 @@ Access network는 wired, wireless communication links를 통해 host와 연결�
 
 ### Network core 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.37.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.04.37.png" style="zoom:50%;" />
 
 Router : 하나의 host가 data를 보내면 목적지 host까지 data를 전송해주는 역할을한다.
 
@@ -137,7 +137,7 @@ Host가 정보를 보내려고 하면 Access Network에서 데이터를 받아 e
 
 ### Access networks: cable-based access, 티비선
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.25.01.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.25.01.png)
 
 집집마다 케이블 티비가 있었을 때, 케이블의 채널을 조정해서 **특정 채널을 Data를 위한 채널**로 바꾼다.
 
@@ -145,7 +145,7 @@ Host가 정보를 보내려고 하면 Access Network에서 데이터를 받아 e
   - 하나는 기존 케이블 티비로 보내는 케이블
   - **다른 하나는 Data 사용을 위한 컴퓨터로 보내는 케이블**
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.28.22.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.28.22.png)
 
 - 모든 가입자들이 공통된 신호를 받게 된다.
 
@@ -160,21 +160,21 @@ Host가 정보를 보내려고 하면 Access Network에서 데이터를 받아 e
 
 ### Access networks: digital subscriber line (DSL), 전화선
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.35.34.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.35.34.png)
 
 케이블 티비와 가장 큰 차이점은 DSLAM까지의 line이 dedicate되어있다.
 
 ### Access networks: home networks
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.37.53.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.37.53.png)
 
 ### Wireless access networks
 
- ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.46.23.png)
+ ![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.46.23.png)
 
 ### Access networks: enterprise networks
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.46.54.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.46.54.png)
 
 회사나 대학 수준의 규모가 있는 네트워크 사이즈이다.
 
@@ -184,7 +184,7 @@ Host가 정보를 보내려고 하면 Access Network에서 데이터를 받아 e
 
 ### Access networks: data center networks
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.49.11.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.49.11.png)
 
 데이터 교환량이 상상을 초월하기 때문에 특별화된 전용 네트워크를 사용한다.
 
@@ -192,7 +192,7 @@ high-bandwidth links로 연결이 됨.
 
 ## Host 가 data packet을 보낼 때
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.53.33.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 8.53.33.png)
 
 호스트에는 어플리케이션 돌아가고, 호스트에 있는 어플리케이션들은 메세지를 만들어서 목적지에 있는 호스트와 메세지를 교환하고 싶다.
 
@@ -240,14 +240,14 @@ L : 패킷의 크기
 
 packet의 목적지에 따라 어느 곳으로 가야할지 **결정하는 algorithm이다.**
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.39.20.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.39.20.png" style="zoom:50%;" />
 
 - Packet Header에 있는 destination address에 따라 어떤 output link로 보내야할지 결정하는 알고리즘.
 - Algorithm의 결과를 **forwarding table에 작성한다.**
 
 #### Forwarding
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.39.20.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.39.20.png" style="zoom:50%;" />
 
 - Routing algorithm 결과에 의해 작성된 forwarding table을 참조하여 **물리적으로 packet을 Input port에서 output port로 보내는 역할을 한다.**
 
@@ -255,7 +255,7 @@ packet의 목적지에 따라 어느 곳으로 가야할지 **결정하는 algor
 
 Network core에서 일어나는 일은 packet switching이다. (위에서 routing과 forwarding으로 packet을 이동시키는 방법인데, 이제 실제적으로 전달하는 과정이 어떻게 되는지 알아볼 것이다.)
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.48.53.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 9.48.53.png)
 
 - 1 hop : 노드에서 다음 노드로 이동하는 단위로 생각하자.
 - topology : 컴퓨터 요소들을 물리적으로 연결해 놓은 것을 말한다.
@@ -287,7 +287,7 @@ Packet의 첫번재 bit - packet의 마지막 bit -> 이것이 다 받아질때*
 
 #### Cut Through
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.26.47.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.26.47.png)
 
 - 패킷을 Header(destination address를 포함)을 다 받으면, 다 받기 전에 다음 hop으로 forwarding하는 기술이다.
 - cut through 방식에서 앞의 시간이 살짝 빈 것은 **Routing algorithm**에 필요한 시간임을 알 수 있다.
@@ -297,7 +297,7 @@ Packet의 첫번재 bit - packet의 마지막 bit -> 이것이 다 받아질때*
 
 #### Queueing
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.31.31.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.31.31.png)
 
 Topology 분석 : A,B host, router
 
@@ -320,7 +320,7 @@ Bottle neck Topology에서 arrival rate이 엄청 높아져 queue에 즉, buffer
 
 Packet Loss가 발생하는 Packet switching에 비교할 방법인 Circuit Switching을 설명하겠다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.43.07.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 10.43.07.png" style="zoom:50%;" />
 
 Host간 Communication을 위해 회로를 연결하는 것 과 같이 사전에 **resource를 미리 할당**하는 것이다.
 
@@ -331,7 +331,7 @@ Host간 Communication을 위해 회로를 연결하는 것 과 같이 사전에 
 
 ####  FDM and TDM
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.17.19.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.17.19.png" style="zoom:50%;" />
 
 - FDM : Frequency Division Multiplexing
   - frequency band : frequency별로 나누어서 유저에게 할당
@@ -344,7 +344,7 @@ Host간 Communication을 위해 회로를 연결하는 것 과 같이 사전에 
 
 ### Packet Switching vs Circuit Switching
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.25.39.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.25.39.png)
 
 - Circuit Switching : 각각의 유저가 100Mb/s를 사용할 수 있어야 하니까 
 
@@ -354,7 +354,7 @@ Host간 Communication을 위해 회로를 연결하는 것 과 같이 사전에 
 
   - 35명이 사용할때, 10명 이상의 동시 접속자가 발생할 확률은 다음과 같다.
 
-  ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.32.12.png)
+  ![](/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.32.12.png)
 
 #### Packet Switching이 어떨때 좋을까?
 
@@ -370,25 +370,25 @@ Host간 Communication을 위해 회로를 연결하는 것 과 같이 사전에 
 
 기초적인 인터넷 설명 파트에서 봤듯이, Host들은 **Access ISPs**에 의해 즉, Host들이 Internet Core와 연결이 되어야 다른 Host사이에서 통신이 가능해진다. 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.45.11.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.45.11.png" style="zoom:50%;" />
 
 - **Access ISPs**들은 서로 연결이 되어야 하는데,모든 ISP들을 서로 Mutually Interconnected하게 구현한다면 O(n^2)만큼의 복잡도가 필요하다. (불가능한 scale이다.)
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.45.46.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.45.46.png" style="zoom:50%;" />
 
 - 위와 같이 Global ISP로 쪼개고
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.46.07.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.46.07.png" style="zoom:50%;" />
 
 - IXP(Interner Exchange Point) : Global ISP는 IXP에 의해 연결이 되어있고
 - Regional ISP로 나눠 Global ISP로 나눈다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.46.10.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.46.10.png" style="zoom:50%;" />
 
 - 구글이나 Microsoft, Akamai : 그들만의 network를 만들어 user에게 서비스를 제공한다.
 - 자신만의 content end user와 가까이 제공할 수 있는 network
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.52.42.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오전 11.52.42.png" style="zoom:50%;" />
 
 - 이와 같은 시스템이 인터넷의 모습이다.
 
@@ -406,9 +406,9 @@ http://gaia.cs.umass.edu/kurose_ross/interactive/ps_versus_cs.php
 1. Circuit switching user 각각이 bandwidth를 link의 capacity와 나눈다.
 2. Packet switching의 유저를 circuit switching 방식으로 할당하려면 총 합의 link capacity가 충분해야한다.
 3. Packet switching할 때, **특정 한 명의 유저**가 보내고, 다른 유저는 쉬고 있을때 구하는 식은 다음과 같다.
-   - ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.15.09.png)
+   - ![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.15.09.png)
 4. 여기서는 **임의의 한 명의 유저** 따라서 식은 다음과 같다.
-   - ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.14.52.png)
+   - ![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.14.52.png)
 
 5. 하나의 user가 capacity의 얼마를 점유하는지 소수로 나타내기
 6. a : 총 사람의 수, b : 선택된 사람의 수, 조합 이용해서 binomial distridution 사용하기
@@ -422,7 +422,7 @@ http://gaia.cs.umass.edu/kurose_ross/interactive/ps_versus_cs.php
 
 **Packet delay**나 **Packet loss**가 발생할 수 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.50.00.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 12.50.00.png)
 
 Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문이다. 또한 **Packet rate > output link capacity** => Queue의 길이가 증가한다.
 
@@ -432,7 +432,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 #### Router나 Switch의 Buffer Size
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.11.14.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.11.14.png)
 
 - 시간에 대해서 queue의 length를 나타낸 그래프
 - buffer size : Switch나 router가 가지고 있는 buffer의 최대 용량
@@ -454,7 +454,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 ### Packet Delay
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.15.33.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.15.33.png)
 
 - d_nodal : Packet을 받게될 때 부터 packet 을 전송할 때 까지 delay
   - d_proc : processing delay
@@ -475,13 +475,13 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
     - s : propagation speed 
     - **d_prop = d/s**
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.25.57.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.25.57.png)
 
 - VF * C : propagation speed를 의미한다. 
 
 #### Host A만 전송
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.27.39.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.27.39.png)
 
 - Host A 
   - 전체 Packet을 전송하는데 걸리는 시간
@@ -494,13 +494,13 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 #### Host A, Host B가 시간차를 두고 전송 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.31.40.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.31.40.png)
 
 - Host A, B packet수신에 있어서 overlap이 발생하지 않는다.
   - 받은 packet은 바로 보내고싶다.
 - Host B의 packet이 수신이 다 되었을 때는 Host A의 Packet의 transmission이 끝났기 때문에 queueing delay가 발생하지 않는다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.34.10.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.34.10.png)
 
 - Host A, B packet수신에 있어서 overlap이 발생한다.
   - Host B의 packet수신이 끝나서 다음 router로 전송하고 싶지만, 아직 Packet A가 transmission중이기 때문에 queueing delay가 발생한다.
@@ -511,7 +511,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 ### Caravan Analogy
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.40.30.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.40.30.png)
 
 - car : bit
 - caravan : packet (즉, 차가 caravan으로 연결이 된다.) => 톨게이트에서는 10개의 모든 차량이 와야 돈을 징수할 수 있다.
@@ -520,7 +520,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 이라고 볼 수 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.44.52.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.44.52.png)
 
 @ 2번째 톨게이트에 차가 도착할 때 까지 걸리는 시간.
 
@@ -529,7 +529,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 
 @ 차의 속도가 매우 빨라지고 toll booth에서 speed가 느려진다고 생각해보자. 모든 차가 첫번째 부스에서 처리되기 전에 두 번째 toll booth에 차가 도착할 수 있을까?
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.53.09.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 1.53.09.png)
 
 - propagation speed : 1000km/hr이라고 하자.
   - 가는데 6분이 걸림
@@ -543,7 +543,7 @@ Packet 이 router의 버퍼에 쌓이고, transmission까지 대기하기 때문
 - L : packet 길이
 - R : link bandwidth(Maximum capacity)
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.13.26.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.13.26.png)
 
 - Traffic Intensity : traffic이 얼마나 들어오는지에 대한 척도
 - a : 패킷이 큐에 도착하는 평균 속도
@@ -560,11 +560,11 @@ queueing delay : I(L/R)(1 - I) for I < 1.
 
 #### Packet delay와 route 측정
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.27.25.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.27.25.png)
 
 3 개의 probe를 보내서 delay와 경로를 얻어온다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.28.13.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.28.13.png)
 
 -	확률적으로 queueing delay가 없을 때 측정할 수 있으므로 delay가 줄어들 수 있다.
 -	probe가 lost되거나 router가 응답하지 않도록 설정했을 때 그럴수 있다.
@@ -573,7 +573,7 @@ queueing delay : I(L/R)(1 - I) for I < 1.
 
 비트를 sender에서 receiver까지 보내는 속도를 의미한다. 따라서 bit/sec로 측정이 가능하다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.54.47.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.54.47.png)
 
 - Throughput : rate(bit/time unit)
   - Instananeous : 특정 point에서 rate
@@ -582,7 +582,7 @@ queueing delay : I(L/R)(1 - I) for I < 1.
   - 즉, 위의 Throughput : 더 작은 쪽의 Throughput이다.
   - 작은 값에 의해서 **end to end throughput**이 결정이 된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.59.19.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 2.59.19.png)
 
 - Rs < Rc : 방향에 따라서 후에 보낼 수 있는 rate가 크므로 충분히 이전 throughput을 수용이 가능하다. 따라서 end-end throughput은 Rs이다.
 - Rs > Rc : 하지만, 이 상황에서는 처음에 보내는 throughput을 Rs의 rate로 전송하고, 그 다음 Rc의 rate로 전송하게 된다면 **Rs-Rc만큼의 packet들이 drop된다.**
@@ -599,7 +599,7 @@ Bottleneck link에 의해 transmission rate가 제한이 된 상황에서 기존
 
 #### Network scenario
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 3.04.27.png" style="zoom:50%;" />
+<img src="/assets/images/post/computer networking/스크린샷 2021-03-28 오후 3.04.27.png" style="zoom:50%;" />
 
 10개의 연결이 bottleneck link R과 공평하게 공유한다고 생각하자.
 
@@ -637,7 +637,7 @@ Ex) For 1s, a packet with 1Mbits information + 0.2 Mbits header is transmitted o
 
 #### 문제풀이
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 3.21.44.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 3.21.44.png)
 
 - Propagation delay : **20000km** / **2.5 * 10^8 m/s** = 0.08 s = 80ms
   1. R * d_(prop) =  2Mb/s * 80ms = 2000Kb/s * 0.08ms = 160Kbits
@@ -698,7 +698,7 @@ http://gaia.cs.umass.edu/kurose_ross/interactive/end-end-throughput-simple.php
 3. N's utilization = R_bottleneck / R_N
 4. N's utilization = R_bottleneck / R_N
 5. N's utilization = R_bottleneck / R_N 
-   - 여기서는 R/number of link
+   - N이 shared R이자나
 
 ### 주의할 점 
 
@@ -710,25 +710,25 @@ KB, MB, GB 는 1024단위이다.
 
 ### Packet interception
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 4.48.17.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 4.48.17.png)
 
 - Packet “sniffing” : Packet을 가로채는 방법
 - Broadcast media를 통해 가로챈다.
 
 ### Fake Identity
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.54.17.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.54.17.png)
 
 - IP "Spoofing" : IP주소를 속인다.
   - source 정보를 바꾼다.
 
 ### Denial of Service 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.56.36.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.56.36.png)
 
 ### Lines of Defense
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.57.12.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 9.57.12.png)
 
 ## Protocol Layers, Service Models
 
@@ -742,13 +742,13 @@ networking 광섬유,, 이런거는 신경 쓸 필요 없지.
 
 기본적으로 복잡한 시스템에서는  devide and conquer방식을 사용하여 작은 조각으로 나누고 그 조각에서 하고싶은 것을 focus한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 10.11.15.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 10.11.15.png)
 
 - 여행을 간다고 가정하면 위와 같은 루틴이 있다.
 - 데이터 네트워크도 똑같은 스텝을 밟는다.
 - data packet travel, human travel은 유사한 점이 많다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 10.12.59.png)
+![](/assets/images/post/computer networking/스크린샷 2021-03-28 오후 10.12.59.png)
 
 - 각 레이어에서 서비스를 구현한다. 각 레이어에서 고유의 동작을 한다.
 - 각 레이어는 이웃하는  layer가 아닌이상 상호작용하지 않는다.
@@ -764,188 +764,9 @@ networking 광섬유,, 이런거는 신경 쓸 필요 없지.
 - 하지만, 어떤 경우에는 악영향을 끼치기도 한다.
   - 어떤 Layer을 최적화 한다고 해도 전체적인 시스템의 performance를 증가시킨다는 보장은 없다.
 
-## Internet protocol stack
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 10.22.09.png)
 
-- application layer -> transport layer -> network layer -> link layer -> physical layer
-  - 이 책의 부제목이 top-down approach 이므로 application layer 에서 시작하여 Physical layer로 접근하는 방식을 취하는 것을 알 수 있다.
-- Physical Layer은 detail은 안다루고 나머지 Layer의 Detail만 다룰 것이다.
+-Reference-
 
-### Physical Layer
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 11.19.18.png)
-
-역할 : **Binary Data - > Signal로 변환한다**.
-
-- 두 host 사이의 comminication을 위해선 두 호스트 사이에 link 가 있어야 한다. 그리고 나서 signal을 sender에서 receiver로 보낸다. sender가 signal을 보내면 link를 타고  propagate해서 receiver로 간다.
-- 우리가 가진 데이터는 binary data인데, wire를 통해서 보내려면 변환이 필요하다.
-- **binary data -> signal**로 변환하는 것이  Physical Layer의 역할
-
-##### Physical Layer 다른 설명
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 6.21.40.png)
-
-Physical layer에서 Binary data에서 Electrical signal waveform을 생성한다. 이거는 간단한 방법이도 보통은 아래와 같이  sin 형태의 그래프로 변환하고,
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 6.27.50.png)
-
-다음을 변경하면서 binary information을 변경할 수 있다.
-
--	Amplitude : 
--	Phase : 00 01 10 11 -> 0 90 180 270 phase difference로 신호를 조작한다.
-
-###  Link Layer
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-28 오후 11.31.31.png)
-
-**Shared network 아래에서 이웃하는 network element 사이의 데이터 전송을 정의한다.** link layer의 역할을 다음과 같ㄴ다.
-
-	-	**Addressing who is source and who is destination**
- -	**Transmission Coordination** (media access control = MAC)
-   	-	Link Layer에서  MAC주소를 사용하여 누가 전송에 있어서 priority를 가지는지 알아낸다. MAC주소는 하드웨어에 포함되어있다.
-
-#### 역할 1
-
-Shared Network or Directly Connected Network(위의 그림과 같이 link에 여로 노드들이 붙어있는 것을 의미, 따라서 맨 왼쪽의 node가 signal을 보내면 다른 모든 노드들이 signal을 받을 수 있다.) 아래서 
-
-- Link가 있고, 같은 링크에 붙어있는 User(node)가 있다. 
-- Node에서 transmit하면 link에 있는 모든  **node들이 signal**을 받는다. 
-  - 이 자체가 문제이다. -> 누가 signal을 받을 지 특정해야 한다.
-- 누가 intended된 node임을 알 수 있을 까? 모든 node이 signal을 받으니까 알아야 한다.
-  1. **transmitter 가 signal을 보내면 receiver에 대한 주소정보를 적어야 한다.**
-  2. **Addressing who is source and who is destination**
-
-#### 역할 2
-
-- link layer가 destination에 대한 정보를 제공한다. (내가 누구고 destination이 어디로 가는지에 대한 정보)
-- 모든 사람들이 Signal을 동시에 보내려고 하면 누구도 decode할 수 없다.
-- 따라서 media access control mechanism으로 어떻게 접근해야 
-  1. **따라서  link layer은 누가 signal을 보내야할 지 정해주는 역할도 한다.**
-  2. **Transmission Coordination** 
-
-#### Frame : Unit of Data Delivery
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 6.50.51.png)
-
-[010101]0010... [    ]으로 나눔. 이 [    ] 유닛 하나를 **Frame**(Packet이지만, 각 레이어에서 전달하는 방식이 각자 있기 때문에 각자 다르게 부른다.)이라고 한다.
-
-Frame이 MAC주소를 포함하고 MAC protocol이 누가 signal을 보낼지 결정한다.
-
-**Payload : 근본이 되는 데이터**
-
-### Network Layer
-
-#### 역할
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.14.43.png)
-
-- 이것은 Floor layout : 한 건물의 레이아웃이다.
-- 각 방마다 다른 학생들이 있다. 그 방은 Aucustic channel로 이루어진 Directly connected network라고 할 수 있다.
-- 다른 방에 학생들 하나 씩 집어서(빨간 동그라미)생각해볼 수 있다.
-  - 한 방에 있는 사람 중 한명이 소리치면 다른 방에 있는 사람의 목소리는 들을 수 있다.
-  - 빨간 동그라미가 있는 방은 Directly connected하지 않다고 한다.
-- 다른 건물에 있는 사람 또한 indirectly connected하다고 할 수 있다.
-- 만약, gist 건물에 있는 사람 중 한 명이 다산 빌딩의 건물에 있는 사람에게 메세지를 전달하고 싶으면 어떻게 해야하나?
-  - GIST 건물에 있는 사람이 다른 Helper들을 동원해 역참같이 전달할 수 있다.
-    - => Router이다, 가끔 Gateway라고 불린다.
-- 한 사람의 목적지가 같은 네트워크에 없으면 그 정보를 Gateway로 전달해야 한다. Gateway node가 router를 타고 목적지의 Gateway로 간다.
-
-**network layer에서 address 이름 ? => Internet protocol Address : IP 주소**
-
-- IP 주소는 유일하고,  MAC주소는 유일하지 않다.
-- 가장 중요한 파트는 Routing이다. -> Path를 찾는 과정
-  - Route는 router의 series이다. 
-
-#### Datagram : Unit of Data Delivery
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.20.30.png)
-
-### Transport Layer
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.38.20.png)
-
-내가 사용하고 있는 기계가 있다고 하자. 이거는 컴퓨터이다. 컴퓨터 뒷면을 보면 NIC가 있음을 알 수 있다. 저것을 Ethernet cable이 있으며 인터넷과 연결할 수 있다. Network layer은 IP주소가 있다.
-
-기기 자체에 IP주소가 있다. 
-
-datagram에는 IP주소가 있고, 이것이 이더넷 케이블을 따라 들어간다. 
-
-여기서 문제는 여기  OS를 보면 여기에는 많은 Processses가 있는데, zoom, 유튜브, 크롬과 같은  process가 있다고 하자.
-
-Zoom이 packet을 기다리고 있다고 하자, 그리고 유튜브는 packet전송을 기다리고 있다고 하자. 그래서 많은 process가 있다. 
-
-중요한 점은 내가 datagram을 받았는데, 어떤 프로세스에 할당할지를 모른다는 것이다.
-
-OS는 어떤 process로 datagram을 보내야할지 어떻게 알까?
-
-- 이로인해서 또 다른 ADD scheme 이 transport layer에 필요하다.
-
-한 노트북에서 프로세스 3개 (줌, 유튜브, 크롬)
-
-다른 컴퓨터에서 프로세스 3개 (줌, 다음팟, 사파리)
-
-만약 한 노트북의 줌 프로세스에서 다른 컴퓨터에서 줌 프로세스와 communication이 필요하다고 한다. 
-
-- Transport Layer는  Process - Process 간의 통신이다. 다른 컴퓨터간의
-
-Transport Layer에서 Address scheme -> **Port number** 
-
-- Port number에 따라서 어느 Process로 보내야 할지 결정한다.ㄴ
-  - Port number TCP, Port number UDP 
-
-- network layer에서는 NIC(network interface card)가 있어서 그 기기에 대한 IP address를 알 수 있다. -> 기기간 소통
-
-#### Segment : Unit of Data Delivery
-
-### Services, Layering and Encapsulation
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.48.16.png)
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.49.35.png)
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 7.49.23.png)
-
-- Application : message를 생성하고 transport Layer로 보낸다.
-- Transport : message를 받으면 Header를 붙인다. header는 port number를 포함한다. 이것이 segment가 되고 다음  network layer로 보낸다.
-- Network : segment를 받으면 header를 붙이는데, header는 Source IP add, destination IP address를 포함한다. 그러고 나서 datagram을 link layer으로 보낸다.
-- Link : datagram을 받으면  header를 붙이는데, header는 MAC address를 포함한다.
-
-Payload : 근본을 뜻하며 link layer에게 payload는 datagram, network layer에게 payload는 segment이다.
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 8.08.45.png)
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/computer networking/스크린샷 2021-03-29 오전 8.09.09.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+James F. Kurose, University of Massachusetts, Amherst, Keith Ross의 『Computer Networking, 8th Edition』
 

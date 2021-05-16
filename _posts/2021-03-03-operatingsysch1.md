@@ -23,7 +23,7 @@ A software that acts as intermediary between a user of a computer and the comput
 
 컴퓨터 시스템의 요소는 아래와 같이 4가지로 나눌 수 있다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 9.58.43.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-03 오후 9.58.43.png" style="zoom: 50%;" />
 
 - Hardware : CPU, Memory, I/O devices -> Provides the basic computing resources for the system
 - Operating System : Controls and coordinates the use of hardware among various application and users 
@@ -34,7 +34,7 @@ A software that acts as intermediary between a user of a computer and the comput
 
 ### Computer System Organization
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 10.12.26.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 10.12.26.png)
 
 우선 이것을 이해하기 전, 사전 지식을 쌓자.
 
@@ -58,24 +58,24 @@ A software that acts as intermediary between a user of a computer and the comput
 
 왜 메모리 사이클을 경쟁하게 되는 것인가?
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 10.39.27.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 10.39.27.png)
 
 위의 사진을 보면 다른 device가 버스 하나를 점유해버리면 다른 메모리에 접근해야하는 devices나 CPU는 접근할 수 없기 때문이다.
 
 ### Computer System Abstract
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.10.04.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.10.04.png)
 
 - 컴퓨터를 부팅하기 전 main 메모리의 상태는 위와 같다. 이제 컴퓨터를 부팅 시킨다면 최초로 실핼시켜야할 프로그램이 있다.
   - bootstrap program : 이것은 ROM(Read Only Memory) 또는 EEPROM(Electrically erasable programmable read only memory)에 저장되어 있다.
   - Bootstrap program이 CPU부터 **device까지 탐색하여 상태를 확인**하고 disk로 가서 **Operating System을 찾는다**.
   - 최종적으로 Operating System의 Kernel 을 아래와 같이 메모리에 올려야 한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.16.40.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.16.40.png)
 
 ​	이제, Operating System을 Main memory에 올렸으므로 이제 application program을 실행시켜보자.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.44.16.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.44.16.png)
 
 - c++로 hello world를 출력할때, 어떤 변화가 일어나는지 알아보자.
   - programming language로 짠 코드를 컴파일 시킨다.
@@ -109,7 +109,7 @@ A software that acts as intermediary between a user of a computer and the comput
 
 하지만, 모든 Operating System이 **공통적으로 포함하고 가장 기초적인 프로그램**인 **Kernel**은 있다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-04 오전 12.27.26.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-04 오전 12.27.26.png)
 
 - 모든 OS는 위와 같이 구성되어 있다.
 - **Kernal** 은 공통적으로 포함되어 있다.
@@ -139,7 +139,7 @@ A software that acts as intermediary between a user of a computer and the comput
 
 4. 각각의 Interrupt 타입에 따라서 OS가 행해야 할 행동을 취한다.
 
-   ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-06 오후 12.10.47.png)
+   ![](/assets/images/post/operating system/스크린샷 2021-03-06 오후 12.10.47.png)
 
    - Polling : 선생님이 학생에게 질문이 있냐고 물어보는거와 같이 OS가 직접 request를 이끌어낸다. 있으면 해결해주고 다음 학생(다음 프로그램에게 request를 요청한다.)
    - Vectored Interrupt System : 학생이 선생님에게 질문을 하듯이 OS가 request를 해결해주고 이전 process로 돌아감(강의를 계속 진행하는 거와 같다.)
@@ -161,7 +161,7 @@ Interrupt Handling에 관하여 다시 말하자면, 한 Task의 request를 처�
 
 이제부터 **서버와  Computer 사이의 context 전송을 알아보겠다.**
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-06 오후 3.22.24.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-06 오후 3.22.24.png)
 
 1. user process executing : 유튜브 실행중
 2. trasnferring 발생 : external network adapter로 부터 데이터를 전송받고, 그것을 버퍼(ethernet adapter을 구성한다.)에 저장하고 전송이 완료되었으면 ethernet adapter가 cpu에 신호를 트리거한다.
@@ -211,7 +211,7 @@ Byte : 8 bits -> Kilobyte : 1024 bytes -> Megabyte : 1024^2 bytes -> Gigabyte : 
 
 저장장치의 속도가 빠르면 가격이 오르고, 이것 때문에 Cache memory가 등장하게 된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 5.35.41.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 5.35.41.png)
 
 - registers : cpu의 ALU 옆에 있는 저장장치.
 - cache : main memory와 bus를 통해 연결되어있다.
@@ -233,7 +233,7 @@ CPU의 개입 없이 Devices와 memory 사이의 데이터를 전송하는 방�
 - buffer : 한 곳에서 다른 곳으로 데이터를 전송할 때 일시적으로 데이터를 보관하는 **메모리의 영역**, 메모리와 같은 접근시간을 가진다.
 - bus가 하나 있으면 DMA system도 하나 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.27.24.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.27.24.png)
 
 - device 가 cpu개입없이 메모리에 접근해서 데이터 교환 가능
 
@@ -241,7 +241,7 @@ CPU의 개입 없이 Devices와 memory 사이의 데이터를 전송하는 방�
 
 Asymmetric Multiprocessing : 각각의 프로세서가 specific한 작업을 처리한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.35.30.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.35.30.png)
 
 - Processor 1 : 일반적인 task를 수행하기 위한 processor
   - Multi core
@@ -250,11 +250,11 @@ Asymmetric Multiprocessing : 각각의 프로세서가 specific한 작업을 처
 
 Symmetric Multiprocessing(최근 사용하는 구조) : multi core와 multi chip이 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.41.06.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.41.06.png)
 
 - Multi chip : 각각의 process가 cpu에 올라가면, 이것들을 관리하기 위해서 메모리와 multiple cpu 사이의 교차점(메인보드)에 control unit이 있는데, multi core 같은 경우에는 cpu안에 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.41.16.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.41.16.png)
 
 - Multi core : 최근에는 multi core을 performance가 더 좋으니까 사용한다.
 
@@ -267,33 +267,38 @@ Symmetric Multiprocessing(최근 사용하는 구조) : multi core와 multi chip
 
 ### Operating System Structure
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.56.07.png)
+<img src="/assets/images/post/operating system/스크린샷 2021-03-08 오후 6.56.07.png" style="zoom:50%;" />
 
-Multiprogramming -> 메인 메모리에서 스케쥴러에 의해 작업을 순서대로 한다.(효율적으로 설계되어서 cpu가 쉴 시간이 없다.)
+Multiprogramming -> scheduler의 명령에 따라 메모리에 프로그램을 여러개 올려놓고
+동작시키는 것을 의미한다.
 
-- 유저가 CPU와 I/O 장치를 효율적으로 사용이 불가능 -> Multiprogramming이 CPU가 해야할 일들을 정리함으로 써 
+- 유저가 CPU와 I/O 장치를 효율적으로 사용이 가능 -> Multiprogramming이 CPU가 해야할 일들을 정리함으로 써 
 - Multiprogramming이 없으면 : 작업이 끝나고, 그 다음 작업을 메모리에 올려놓는다.
 - Multiprogramming이 있으면 : memory에 cpu가 해야할 일들을 미리 올려놓는다.
   - 작업이 끝나기 전에 어떤 작업을 처리해야 할 때, (job1 도중 job2를 처리해야한다면, job2를 처리하고 다시 job1으로 돌아오는 것이 가능하다.)
 
-Timesharing -> OS가 다른 작업으로 switch 할 때,(이 작업은 1ms로 매우 빠르다.) 
+Timesharing -> 여러 user가 동시에 사용하고 있다는 느낌을 받음. 다른 작업으로 switch 할 때,(이 작업은 1ms로 매우 빠르다.) 
+
+
 
 ### Operating-System Operations
 
-Interrupt는 하드웨어에 의해 유발되고, 예측 불가능 하기 때문에 asynchoronously하게 발생한다.
+**Interrupt는 하드웨어**에 의해 유발되고, 예측 불가능 하기 때문에 asynchoronously하게 발생한다.
 
-몇몇은 소프트웨어에 의해 발생한다.
+몇몇은 **소프트웨어**에 의해 발생한다.
 
-- Exception : 소프트웨어가 하지 말아야 할 작동, 0으로 나눴을 때 발생하는 것이 대표적인 예시
-- trap : 몇몇 이벤트에 대비해 미리 대기하는 에러발생.
+- **Exception** : 소프트웨어가 하지 말아야 할 작동, 0으로 나눴을 때 발생하는 것이 대표적인 예시
+- **trap** : 몇몇 이벤트에 대비해 미리 대기하는 에러발생.
 
 Dual mode operation : I/O 장치를 보호하기 위해
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.44.16.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-03 오후 11.44.16.png)
 
 - User mode 
 - Kernel mode 
 - mode bit : 현재 어떤 모드로 실행하는지 구별하기 위해 컴퓨터 하드웨어에 추가 됨.
+
+![](/assets/images/post/operating system/스크린샷 2021-04-17 오전 6.30.25.png)
 
 ### Process Management
 
@@ -302,10 +307,28 @@ process : 실행중인 프로그램을 말하며, **program이 main memory에 �
 - program : passive entity
 - process : active entity
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-08 오후 7.59.40.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-08 오후 7.59.40.png)
 
 - Single Threaded process : 다음에 실행할 Program counter가 한 개가 있다. (thread 하나에 pc하나)
 - Multi Threaded process : thread 하나에 pc 하나
+
+
+
+## Storage 
+
+![](/assets/images/post/operating system/스크린샷 2021-04-17 오전 6.41.05.png)
+
+
+
+## Cache Coherency
+
+![](/assets/images/post/operating system/스크린샷 2021-04-17 오전 6.43.42.png)
+
+이  Cache 사이의 변화를 일치시키는 과정, 반드시 Cache Coherency를 제공해야함 multiprogramming에서는
+
+
+
+
 
 
 

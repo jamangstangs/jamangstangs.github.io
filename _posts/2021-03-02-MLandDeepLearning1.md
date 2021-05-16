@@ -111,7 +111,7 @@ plt.ylabel('length')
 plt.show()
 ```
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-03-02-MLandDeepLearning/스크린샷 2021-03-04 오전 1.35.27.png)
+![](/assets/images/post/2021-03-02-MLandDeepLearning/스크린샷 2021-03-04 오전 1.35.27.png)
 
 - scatter plot 을 보면 **일직선의 형태** 로 나타난다. 이를 **Linear**하다고 말한다.
 
@@ -133,7 +133,7 @@ plt.ylabel('weight')
 plt.show()
 ```
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-03-02-MLandDeepLearning/스크린샷 2021-03-04 오전 1.40.20.png)
+![](/assets/images/post/2021-03-02-MLandDeepLearning/스크린샷 2021-03-04 오전 1.40.20.png)
 
 - 주황색이 장어의 scatter plot이다. 
 - 장어는 길이에 비해 상대적으로 무게가 늘어나는 정도가 연어에 비해 덜하다.(기울기가 작다는 소리)

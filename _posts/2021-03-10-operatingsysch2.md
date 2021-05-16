@@ -12,8 +12,6 @@ categories:
 
 ---
 
-## 
-
 ## Operating system structures
 
 ### 용어 
@@ -34,7 +32,7 @@ API (Application Programming Interface): 프로그램과 또 다른 프로그램
 
 ### Operating System Services
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 1.44.51.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 1.44.51.png)
 
 OS에 있는 User interface
 
@@ -102,7 +100,7 @@ CLI는 built-in command의 조합으로 **무한한 action**을 취할 수 있�
 - **kernel와 user program**을 이어주는 인터페이스 역할을 한다.
 - 비록 특정 작업은 low-level task작업으로 처리해야 하지만, 보통 **C나 C++**의 프로그래밍 언어로 쓰여있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.13.00.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.13.00.png)
 
 - Process : user program 혹은  system program으로 볼 수 있다.
   - Process가 직접적으로 System call을 호출 가능하다.
@@ -116,7 +114,7 @@ CLI는 built-in command의 조합으로 **무한한 action**을 취할 수 있�
 
 #### Example of System calls
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.34.03.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.34.03.png)
 
 - 한 파일을 다른 파일에 복사하는 예시
 - 왼쪽으로 치우친 문장 : copy라는 작업의 high level execution
@@ -128,7 +126,7 @@ CLI는 built-in command의 조합으로 **무한한 action**을 취할 수 있�
 
 위의 예시에서 Read와 관련된 system call을 일아보자.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.49.36.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 4.49.36.png)
 
 - 위와 같이 function을 정의하여 system call을 호출한다.
 
@@ -143,7 +141,7 @@ System call interface : 아래의 숫자에 따라서 각각의 system call에 *
 
 #### API - System call - OS 사이의 관계
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 5.29.23.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 5.29.23.png)
 
 - user application : system call을 실행시킬 것
 - system call interface : user application이 실행시킨 open()을 받아 system call table을 참조하여 open()과 관련된 숫자를 찾아 그 숫자를 사용하여 해당하는 주소로 찾아가 open() system call이 구현된 곳에서 실행시키고 return 값을 system call interface에 넘기고, system call interface는 user application으로 넘긴다.
@@ -152,7 +150,7 @@ System call interface : 아래의 숫자에 따라서 각각의 system call에 *
 
  종종 system call만을 호출하는 것보다는 필요한 정보가 더 있을 수 있다. (parameter passing이 필요한 함수도 있기에 특정 system call도 paramter passing이 필요할 것이다. open() 경우에는 타겟 파일의 정보, 원본 파일의 정보, 파일의 길이 정보가 필요하다.) 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 5.44.14.png)
+<img src="/assets/images/post/operating system/스크린샷 2021-03-14 오후 5.44.14.png" style="zoom:50%;" />
 
 user process의 diagram이다.
 
@@ -198,7 +196,7 @@ System call의 종류는 아래와 같이 6개로 분류가 가능하다.
 
 ### MS-DOS : Single - tasking
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.24.34.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.24.34.png)
 
 - (a) : System startup 상태
 - (b) : program을 작동하고 있는 상태
@@ -209,14 +207,14 @@ process가 free memory에 올라가고 **command line interpreter**의 크기가
 
 ### FreeBSD : Multitasking
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.31.54.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.31.54.png)
 
 - User가 login하면 shell을 선택할 수 있다.
 - user 가 CLI에서 프로그램을 실행하면 shell이 **fork() system call**을 작동시켜서 process를 생성한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 7.33.10.png)
-
 - 생성된 모든 **process는 shell의 child**로 생성이 되며, 이를 사용하여 OS가 현재 돌고있는 모든 process를 체크한다. shell이 모든 process의 parent이다.
+
+
 
 ###  System Programs
 
@@ -234,6 +232,8 @@ System Programs와 System Calls의 차이를 알아보자.
   - Communications : processes, user, computer systems  사이의 connection 메커니즘을 제공한다.
   - Background Services : OS의 뒤에서 항상 돌아가고 있으며
   - Application Programs : 배틀필드나 그런 프로그램으로 OS에 딸려있지 않는 프로그램들.
+
+
 
 ### Operating System Design and Implementation
 
@@ -279,9 +279,7 @@ MS : microsoft
 
 DOS : Disk Operating System  
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.08.22.png)
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.24.34.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-14 오후 6.24.34.png)
 
 - Application program : process
 - Resident system program : interpreter 
@@ -291,7 +289,7 @@ DOS : Disk Operating System
 
 #### Non Simple Structure : UNIX 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.16.50.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.16.50.png)
 
 UNIX OS는 하드웨어 기능에 제한을 받아 아래와 같이 두 부분으로 나뉘어 구성이 되었다.
 
@@ -300,20 +298,22 @@ UNIX OS는 하드웨어 기능에 제한을 받아 아래와 같이 두 부분�
   - System call interface 와 kernel interface 사이에 있는 부분
   - file system, CPU scheduling, memory management, 
 
-하지만, fully Layered이다. 엄밀하게 나뉘지 않았다.
+하지만, fully Layered이 아니다. 엄밀하게 나뉘지 않았다.
 
 #### Layered Approach 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.43.05.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.43.05.png)
 
 운영체제를 더 세분화해 계층을 분리함.
 
 - bottom layer : hardware
 - top layer : user interface
 
+자기보다 아래층에 있는 것만 사용이 가능하다.
+
 ### Microkernel System Structure
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.49.09.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-15 오후 5.49.09.png)
 
 커널의 많은 부분을 user space로 넘겨 커널 사이즈를 최대한 줄이려고 한다. 따라서 위의 그림과 같이 
 
@@ -345,7 +345,7 @@ Mac OS X :  BSD가 핵심이지만 나머지는 모두 애플이 자체 구현�
 
 - Hybrid Structures이며 layered system이다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.30.31.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.30.31.png)
 
 - Aqua 가 top layer
 - kernel environment : Mach microkernel, BSD Unix parts로 구성됨. 
@@ -355,7 +355,7 @@ Mac OS X :  BSD가 핵심이지만 나머지는 모두 애플이 자체 구현�
 
 맥보다 좀 더 간단하게 구성되어 있다. 현재는 ios와 mac os가 하드웨어 유사성으로 통합된다는 것을 들었다. 위의 mac os와는 다르게 구성되어 잇다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.50.21.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.50.21.png)
 
 - cocoa touch : C API 
 - media services : 비디오, 오디오, graphic을 위한 layer
@@ -371,7 +371,7 @@ Linux 커널에 기초하지만, 수정되었다.
 - process, memory, device driver management를 제공한다. (이 점이 다르다)
 - power management가 추가되엇다. -> (기본적인os에서는 별로 중요하지 않다.)
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.57.04.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-17 오후 4.57.04.png)
 
 #### Operating System Debugging
 

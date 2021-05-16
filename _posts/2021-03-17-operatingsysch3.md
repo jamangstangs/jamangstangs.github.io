@@ -52,7 +52,7 @@ OS는 다양한 프로그램을 돌리는데, 돌리는 것에 따라 부르는 
 
 process실행은 sequential하게 진행된다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 6.24.17.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-17 오후 6.24.17.png" style="zoom:33%;" />
 
 - program을 메모리에 로드하면 프로세스라 하고, 위의 logical address임을 알고 있다고 하자.
 - process입장에서는 0에서 시작하고 max에서 끝나지만, 그들은 사실 physical memory주소에 저장이 되어있다. 
@@ -80,7 +80,7 @@ malloc을 사용하면 heap 영역이 늘어나면서 늘어난 영역의 addres
 
 #### Process State
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 8.47.55.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-17 오후 8.47.55.png)
 
 OS는 process의 시작부터 종료까지 관리해야 한다. **OS는 이것을 5가지 상태로 관리**한다.
 
@@ -107,14 +107,14 @@ User area : user application의 주요 구역
 
 만약 OS가 user area에 존재하는 process의 정보를 얻고싶다. 그럴때 OS는 **kernel mode**에서 **user mode**로 변경하여 user process의 data를 확인하고, 다시 돌아와서 어떤 process를 실행시킬지 결정해야 한다. => **매우 cost가 많이 든다**. => 따라서 OS가 kernel area에 process의 관련된 모든 정보를 kernel area에 저장한다.(kernel mode에서 user mode로 비효율적으로 움직이지 않기 위해). 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 9.37.02.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-17 오후 9.37.02.png" style="zoom:33%;" />
 
 - kernel area에 PCB의 리스트가 존재. OS가 user mode에 있는 정보를 찾기위해 직접 user mode로 가지 않고 PCB에서 해당 프로세스의 정보를 찾는다. 따라서 scheduling을 할 때 user area에서 찾지 않고 PCB에서 프로세스들의 정보를 찾아 다음에 어떤 process를 실행시킬지 결정한다.
 - OS가 PCB형식으로 process의 정보를 저장하고(저장하는 정보는 OS마다 다르다. 하지만 모든 OS가 공유하는 **공통되는 정보는 위에서 배운 Process State**를 저장한다.(new, ready, running, wait, terminated)
 
 PCB의 형태는 아래와 같다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 9.44.48.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-17 오후 9.44.48.png" style="zoom:33%;" />
 
 각 프로세스와 관련된 정보
 
@@ -132,7 +132,7 @@ PCB의 형태는 아래와 같다.
 
 #### CPU Switch From Process to Process
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 10.01.53.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-17 오후 10.01.53.png" style="zoom:33%;" />
 
 오직 2개의 프로그램이 같은 시스템에서 작동되는 모습을 보여준다. 실제 상황에서는 한 시스템에 훨씬 많은 프로세스가 작동이 된다.
 
@@ -154,7 +154,7 @@ single process 는 single program counter을 가짐. -> context switch 발생 ->
 
 ### Process Control Block in Linux
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 10.47.12.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-17 오후 10.47.12.png)
 
 - t_pid : 프로세스를 구별하기 위한 process identifier
 - state : process state
@@ -175,7 +175,7 @@ CPU 사용을 극대화하기 위해서 요구되며, multiple processor가 simu
 
 Process schedular : CPU에서 사용 가능한 processes중에서 하나를 선택한다. 이를 위해 아래와 같은 Scheduling queues of processes를 유지한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-17 오후 11.45.41.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-17 오후 12.29.56.png)
 
 - Job queue : 어떤 process가 ready해야할 지 결정한다.
 - Ready queue : OS가 job queue에 있는 process중 하나를 선택하여 ready queue로 이동시키고, OS가 해당 process를 메모리에 할당시키고, 해당 process를 **ready state**로 바꾼다.
@@ -208,7 +208,7 @@ Scheduler 입장에서 프로세스는 아래와 같이 정의할 수 있다.
 
 추가적으로 어떤 OS는 Medium term scheduler을 추가하기도 한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.00.21.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.00.21.png)
 
 - Medium-term Scheduler : 시스템의 성능을 향상시키기 위한 추가적인 개념으로, 프로세스의 특성(I/O bound 혹은 cpu bound와 같은 특성)에서 부터 오는 개념이다. (VM에서 다시 배우게 될 것이다.)
   - 각 process는 CPU혹은 I/O bound일 것이다.
@@ -269,12 +269,12 @@ Scheduler 입장에서 프로세스는 아래와 같이 정의할 수 있다.
 
 4. UNIX 예제
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.51.55.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.51.55.png)
 
 - fork() system call : 새로운 process를 생성한다. (보통 현재 process를 복제하여 생성한다.)
 - exec() system call : **fork()뒤에 써야하며**, process의 공간을 새로운 program으로 대체한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.54.31.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.54.31.png)
 
 - pid = fork(); -> child process를 fork한다. 이 시점에서는 parent와 child가 **pid를 제외하고** 같은 code를 가지게 된다. 그 다음  pid에따라 어떤 행동을 해야할지 결정한다.
   - pid<0 : child가 제대로 생성이 안됨 -> fork failed하고 1를 리턴한다.
@@ -283,7 +283,7 @@ Scheduler 입장에서 프로세스는 아래와 같이 정의할 수 있다.
 - return 0가 wait(NULL)을 트리거한다.
 - parent는 0보다 큰 pid를 리턴, child는 0을 리턴한다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.43.13.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 2.43.13.png)
 
 #### Process Termination
 
@@ -307,7 +307,7 @@ process가 종료되는 방식
 
 process termination의 대표적인 오류
 
-- zombie process : 프로세스가 종료되었지만, parent가 wait()을 통해 status를 보고받지 못했을 경우(child process가 종료되었지만, 그것의 status가 parent로 전달되지 않음)
+- zombie process : 프로세스가 종료되었지만, parent가 wait()을 통해 status를 보고받지 못했을 경우(child process가 종료되었지만, 그것의 status가 parent로 전달되지 않음), child process는 parent가 wait()을 호출할때까지 기다린다. 
   - 따라서 main memory상에서 process의 정보가 남아있다.
 - orphan : parent process가 wait() 호출하지 않고 종료되었을 때, 그것의 child process를 의미한다.
 
@@ -322,7 +322,7 @@ system 안에서 어떤 프로세스는 **독립적으로** 실행되거나 다�
 
 따라서 서로 협력하는 process는 **IPC(interprocess communication)**이 필요하다. 아래 두 가지의 대표적인 모델이 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 3.56.46.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 3.56.46.png)
 
 - Shared Memory : message passing보다 간단해 보이며, shared memory area를 선언하여 두 프로세스가 이 영역에 접근 가능하여 data를 얻거나 data를 보낸다.
 
@@ -344,7 +344,7 @@ system 안에서 어떤 프로세스는 **독립적으로** 실행되거나 다�
 
 ##### Shared Memory Solution
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.29.07.png" style="zoom:33%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.29.07.png" style="zoom:33%;" />
 
 - buffer size 를 10으로 설정함.
 - item의 자료형을 설정함.
@@ -353,7 +353,7 @@ system 안에서 어떤 프로세스는 **독립적으로** 실행되거나 다�
 
 ##### Producer
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.33.38.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.33.38.png)
 
 - item 자료형으로 next-produced 되는 것을 하나 선언함.
 - 무한정으로 실행되는 반복문에서
@@ -362,7 +362,7 @@ system 안에서 어떤 프로세스는 **독립적으로** 실행되거나 다�
 
 ##### Consumer 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.41.43.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-22 오후 5.41.43.png)
 
 - item 자료형으로 next-consumed 되는 것을 하나 선언함.
 - 무한정으로 실행되는 반복문에서
@@ -439,7 +439,7 @@ message의 size는 buffer의 구조에 따라 고정되거나 변할 수 있다.
 
 Direct communication link의 특징은 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.34.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.34.png)
 
 - Link는 자동으로 establish된다. 따라서 communication 전에 설치해줄 필요는 없다.
   - send를 하면 OS가 call을 받고 OS적으로 communication link를 만들어주어 메세지를 전달한다.
@@ -460,7 +460,7 @@ Process가 통신하기 위해 **target process가 누구인지는 알 필요가
 
 Indirect Communication link의 특징은 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.43.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.43.png)
 
 - Link는 Processes들이 **공동의 mail box를 공유**해야만 establish된다. (single mailbox에 single process는 communication 불가능, mailbox에 혼자만 있으니까)
 - mailbox와 관련된 하나의 link는 다른 여러 프로세스들과 관련이 될 수 있다. (위의 그림 참조, mailbox A 는 4개의 process와 연관. mailbox B도 4개의 process와 연관)
@@ -492,7 +492,7 @@ mailbox synchronization을 아래와 같은 상황을 예로 들어 설명을 �
 
   3. process P가 message를 R Q S에게 보냈다고 했을 때, 발신자가 누가 수신자였는지 알림을 받는다.
 
-     ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.23.35.png)
+     ![](/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.23.35.png)
 
 #### Synchronization
 
@@ -510,15 +510,15 @@ message passing은 **blocking**이거나 **non-blocking**일 수도 있다.
 
 blocking끼리, non blocking끼리 사용하지만, 서로 섞어서 사용이 가능하고, 아래와 같이 send와 receive가 blocking된 링크롤 **rendezvous link**라고 한다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.45.49.png" style="zoom: 50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.45.49.png" style="zoom: 50%;" />
 
 아래와 같은 rendezvous link 상황에서는 서로간 response를 기다리기만 하며 block을 cancel할 수가 없다. 이 combination이 완료되면 PQR은 작동될 수 없으므로  OS가 재 시작해줘야 한다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.49.16.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.49.16.png" style="zoom:50%;" />
 
 blocking send()와 receive()는 아래와 같다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.53.09.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.53.09.png" style="zoom:50%;" />
 
 - send(next_produced) -> blocking으로 구현되어서 send가 끝나야 다음 반복분 실행이 가능
 - receive(next_consumed) -> blocking으로 구현되어서 receive가 끝나여 consum이 가능하다.
@@ -552,7 +552,7 @@ shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
 - O_RDRW : reading and writing을 위한 **object**인지 아닌지 명시해주는 parameter
 - 0666 : 얘는 **file의 permission**이다.
   - umask 
-  - <img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 4.46.17.png" style="zoom:50%;" />
+  - <img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 4.46.17.png" style="zoom:50%;" />
   - read : 4 write : 2 execute : 1 
   - d 는 file type으로 0, c, d가 나올 수 있다.
   - user, group, others에게 허가권을 부여하는 것이다. 각 부분을 3비트로 나타내서 위와 같은 코드가 나오게 된다.
@@ -583,9 +583,9 @@ ptr = mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
 ##### 전체적인 그림
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.16.01.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.16.01.png" style="zoom:50%;" />
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.18.35.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.18.35.png" style="zoom:50%;" />
 
 #### Examples of IPC Systems - Mach
 
@@ -607,7 +607,7 @@ Mach는 microkernel system으로 mac os의 기초이다.
 
 message passing이 LPC(local procedure call)을 통해 이루어 진다. sending하는데 좀 더 복잡하다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.38.33.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.38.33.png)
 
 - network상에서 일어나지 않고 같은 시스템 상(local을 의미한다.)에서만 communication이 일어난다.
 - Ports를 사용하여 communication channel을 유지한다.
@@ -649,7 +649,7 @@ Sockets의 정의는 아래와 같다.
 
 소켓 사이의 연결을 나타낸 그림
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.21.41.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.21.41.png)
 
 - host X (client side)
 - web server (server side) : port number = 80은 OS에 의해 지정된 service port이다.
@@ -668,7 +668,7 @@ Sockets의 정의는 아래와 같다.
 
 ##### Socket in Java
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.24.14.png" style="zoom: 50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.24.14.png" style="zoom: 50%;" />
 
 - ServerSocket(6013) : Port number가 6013, IP address는 localhost로 만들 것이므로 적지 않음. 따라서 여기서 server socket을 만든다. (얘가 서버이므로 알아서 해주겠지)
 - Socek client = sock.accept(); : client에서 오는 socket을 기다린다.(blocking call)
@@ -703,7 +703,7 @@ local 보다 remote communicatino이 실패 시나리오가 많으므로 아래�
 
 이를 위해서 RPC는 client -server 연결이 rendezvous하다.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.14.31.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.14.31.png" style="zoom:50%;" />
 
 - caller가 stubs만들어 server에 전송한다. stub이 서버에서 처리되고 결과를 다시 server가 client로 보낸다. 
 
@@ -727,7 +727,7 @@ Process간의 Direct communication. 제한이 많지만 직관적이고 빠르�
 
 ##### Ordinary Pipes
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.33.26.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.33.26.png)
 
 - **Producer**가 pipe의 **write-end**에서 write한다. 
 - **Consumer**가 pipe의 **read****-end**에서 read한다.
@@ -738,7 +738,7 @@ Process간의 Direct communication. 제한이 많지만 직관적이고 빠르�
 
 아래는 parent process에서 child process로 Greetings라는 메세지를 보내는 방법이다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.38.09.png)
+![](/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.38.09.png)
 
 - fd[2] : pipe를 위한 file discriptor 2개를 만들어야 하며 
 - pid를 만듬.
@@ -749,336 +749,6 @@ Process간의 Direct communication. 제한이 많지만 직관적이고 빠르�
   -  read end를 닫음
   - write를 한다. 
   - write end를 닫는다.
-- pid < 0 : child process이므로
-  - write end를 닫음
-  - read  한다.
-  - read end를 닫는다. 
-
-#### Named Pipes
-
-- ordinary pipe보다 더 강력하다. (named pipe는 kernel side에서 만들어진다. ordinary pipe는 user side에서 만들어지므로)
-- bidirectional하다. 양방향 통신이 가능하다. 
-- kernel이 관리하므로 parent-child도 필요 없다. 
-
-##### Direct Communication
-
-두 개의 processs가 서로 통신하는 것을 위해 **target process의 정보가 필요하다**. pid만 아는거 가지고는 direct Communication이 설립되기는 어렵다. 따라서 아래와 같은 형식으로 process간 **명시적으로 이름을 지어야 한다.**
-
-- send(P, message) : send a message to Process P
-- receive(Q, message) : receive a message from Process Q
-
-Direct communication link의 특징은 아래와 같다.
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.34.png)
-
-- Link는 자동으로 establish된다. 따라서 communication 전에 설치해줄 필요는 없다.
-  - send를 하면 OS가 call을 받고 OS적으로 communication link를 만들어주어 메세지를 전달한다.
-  - receive가 작동하지 않으면 두 process가 종료될때가지 memory에 저장되어있는다.
-- Link는 정확히 **한 쌍의 communicating process와 연관이 되어있다.**
-  - multiple process간의 communication은 허락되지 않는다.
-- **한 쌍의 process에 하나의 link만 존재한다.**
-- **unidirectional 가능**하지만 **보통 bi-directional**하다.
-
-##### Indirect Communication
-
-Process가 통신하기 위해 **target process가 누구인지는 알 필요가 없다**. 하지만 **target processes들의 properties는 알아야 한다**.
-
-두 프로세서간 communication을 위하여 **intermedium(mailbox, ports)**이 필요하다. 여기서 intermedium 을 **mailbox 또는 ports** 와 같이 부른다. 이것들의 특징은 아래와 같다.
-
-- 각 mailbox 는 **고유의 id**를 가지고 있다. (숫자는 1000아래로 구성됨.)
-- processes들은 mailbox를 공유해야만 communication이 가능하다.
-
-Indirect Communication link의 특징은 아래와 같다.
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 2.47.43.png)
-
-- Link는 Processes들이 **공동의 mail box를 공유**해야만 establish된다. (single mailbox에 single process는 communication 불가능, mailbox에 혼자만 있으니까)
-- mailbox와 관련된 하나의 link는 다른 여러 프로세스들과 관련이 될 수 있다. (위의 그림 참조, mailbox A 는 4개의 process와 연관. mailbox B도 4개의 process와 연관)
-- 각 쌍의 processes들은 다른 mailboxes를 통해 communication이 가능하다(교집합 부분에 process들은 mailbox A와 mailbox B를 통해 communication가능하다.)
-- Link는 특성에따라 unidirectional하거나 bi-directional하다.
-
-작동과정은 아래와 같다.
-
-- 새로운 mailbox를 만든다(새로운 port를 open한다.)
-- mailbox를 통해 message를 송수신한다.
-- process가 끝나면 mailbox를 없애준다.
-
-또한 위의 direct communication와 같이 primitives(동작)은 아래와 같이 정의된다. 여기서 A는 direct communication과 다르게 target mailbox이며 target port number이다.
-
-- send(**A**, message) : mailbox A로 message를 보낸다.
-- receive(**A**, message) : mailbox A에서 message를 받는다.
-
-그 뒤로 좀 더 detail하게 indirect communication을 알아보겠다. 하나의 mailbox에 여러개의 process가 있다고 하자. 이때 **mailbox synchronization**이 중요해진다.
-
-mailbox synchronization을 아래와 같은 상황을 예로 들어 설명을 해보겠다.
-
-- P1 P2 P3가 mailbox A를 공유하며 P1이 send한다면 mailbox를 P1과 공유하고 있는 P2 P3가 receive할 것이다. 그렇다면 누가 message를 받게 되는 것인가?
-
-- solution은 아래와 같이 3개로 나뉜다.
-
-  1. 이 경우에는 mailbox A가 접근할 수 있는 process를 최대 2개로 설정하는 것이다. (**P1이 message를 보내면 mailbox A가 P2의 receive를 사용하여 제한**을 건다.
-
-  2. 이것은 target specific 송수신 방식이 아니긴 한데, sender가 보내고 process 한 개만 필요하다면 그 경우에 mailbox A가 한 개의 receive operation을 실행하는 것을 허락할 수 있다. -> P1이 보내고 P2가 받았다면 mailbox A가 메세지를 지운다.
-
-  3. process P가 message를 R Q S에게 보냈다고 했을 때, 발신자가 누가 수신자였는지 알림을 받는다.
-
-     ![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.23.35.png)
-
-#### Synchronization
-
-message passing은 **blocking**이거나 **non-blocking**일 수도 있다.
-
-- Blocking (synchronous) : 실행시키면 response가 올 때 까지 기다린다.
-  - A+B = C 는 A와 B를 알아야 C를 알 수 있듯이 순서가 매우 중요하다. 따라서 위와 같이 **처리 순서가 매우 중요할 때 blocking을 사용해야 한다.**
-  - Blocking send : message가 receive될 때 까지 sender가 block된다.
-  - Blocking receive : message가 available할 때 까지 receiver가 block된다.
-    - **sender와 receiver가 송수신이 완료 될 때 까지 기다린다.**
-- non-blocking (asynchronous) : 실행시키면 response가 올 때 까지 기다리지 않고 다음을 실행시킨다.
-  - non-blocking send : sedner가 message를 보내고 계속 continue
-  - non-blocking receive : receiver가 유효한 message 혹은 null을 받는다.
-    - **sender와 receiver가 송수신 완료를 신경 쓰지 않고 그냥 할일을 한다.**
-
-blocking끼리, non blocking끼리 사용하지만, 서로 섞어서 사용이 가능하고, 아래와 같이 send와 receive가 blocking된 링크롤 **rendezvous link**라고 한다.
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.45.49.png" style="zoom: 50%;" />
-
-아래와 같은 rendezvous link 상황에서는 서로간 response를 기다리기만 하며 block을 cancel할 수가 없다. 이 combination이 완료되면 PQR은 작동될 수 없으므로  OS가 재 시작해줘야 한다.
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.49.16.png" style="zoom:50%;" />
-
-blocking send()와 receive()는 아래와 같다.
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 3.53.09.png" style="zoom:50%;" />
-
-- send(next_produced) -> blocking으로 구현되어서 send가 끝나야 다음 반복분 실행이 가능
-- receive(next_consumed) -> blocking으로 구현되어서 receive가 끝나여 consum이 가능하다.
-- no buffer 또는 blocking size variable로 말해 size1 buffer일 수 있다. 무한일 수 있지만 의미가 없다.
-
-#### Buffering
-
-링크에 붙은 message queue가 있다고 하자. (여기서 buffer는 message가 대기하는 장소라고 보자.) 링크에 메모리를 할당해야 한다. communication이 direct하던 indirect하던 message 는 temporary queue(buffer)에 존재한다. 그러한 queue의 구현 방법은 아래와 같이 3개로 나뉜다.
-
-- zero capacity : link에 붙은 queue가 없다(buffer을 할당할 필요가 없다.). 왜냐하면 rendezvous 같은 경우에는 sender는 receiver를 기다려야 하기 때문이다.
-- bounded capacity : queue가 **n messages의 유한한 길이**를 가진다. 따라서 최대 n message가 잠시 저장될 수 있는 buffer가 할당된다.
-  - **queue가 넉넉할 경우** : message는 queue에 저장되며 **sender는 기다릴 필요가 없이 다음 동작을 실행이 가능하다.**
-  - **queue가 찼을 경우** : queue에 공간이 나올 때 까지 **sender는 wait한다.**
-- Unbounded capacity : buffer size에 제한이 없으므로 **sender는 wait하지 않는다.**
-
-#### Example of IPC Systems - POSIX
-
-이러한 방식으로 구현할 수 없지만, OS가 shared memory와 message passing을 구현했는지 보기만 하자. POSIX로 부터 나온 코드는 아래와 같은 코드를 아래와 같은 형태의 코드를 공유한다.
-
-아래 코드는 **shared memory object를 만드는 코드**이다.
-
-##### shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
-
-```c
-shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
-// return file discriptor 정수로 리턴된다.
-```
-
-- name : shared memory **object**를 나타내는 이름이다. 따라서 이 shared memory에 접근하고 싶은 process는 이 객체를 언급해야 한다.
-- O_CREAT : shared memory **object**가 생성되지 않았다면 shared memory object가 생성 될 것인지 명시해주는 parameter
-- O_RDRW : reading and writing을 위한 **object**인지 아닌지 명시해주는 parameter
-- 0666 : 얘는 **file의 permission**이다.
-  - umask 
-  - <img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 4.46.17.png" style="zoom:50%;" />
-  - read : 4 write : 2 execute : 1 
-  - d 는 file type으로 0, c, d가 나올 수 있다.
-  - user, group, others에게 허가권을 부여하는 것이다. 각 부분을 3비트로 나타내서 위와 같은 코드가 나오게 된다.
-- 또한 현재 존재중인 segment를 열기위해 사용되는 코드이다.
-- **file discriptor 이란? :  리눅스 계열의 시스템에서 프로세스에서 특정 파일에 접근할 때 사용하는 추상적인 값이다.**
-
-##### ftruncate(shm_fd, 4096)
-
-```c
-ftruncate(shm_fd, 4096);
-```
-
-- shm_fd : 이것의 결과로 file discriptor을 넘기게 되고, shared memory file에 접근이 가능하다.
-- 4096 : 4096B의 크기로 object의 size를 정한다.
-
-##### ptr = mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm-fd, 0);
-
-```c
-ptr = mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
-```
-
-- mmap() : shared memory object를 포함한 memory-mapped file을 설립하게 해준다.
-  - 이것을 통해 프로세스의 가상 메모리 주소 공간에 파일을 매핑한 뒤 가상 메모리 주소에 직접 접근하는 것으로 파일 읽기/쓰기를 댓니한다.
-
-##### sprintf(ptr, "Writing to shared memory");
-
-이것으로 shared memory 영역에 process가 message를 작성할 수 있다.
-
-##### 전체적인 그림
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.16.01.png" style="zoom:50%;" />
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.18.35.png" style="zoom:50%;" />
-
-#### Examples of IPC Systems - Mach
-
-Mach는 microkernel system으로 mac os의 기초이다. 
-
-모든 communication 은 message를 기반으로 이루어 진다. 
-
-- 모든 process는 **생성될 때** **kernel 과 notify라는 두 개의 mailbox**를 받는다. 다른 프로세서와 communication하고 싶으면 추가적으로 mailbox를 만들면 된다.
-- message transfer을 위해서는 3개의 system call이 필요하다.
-  - msg_send(), msg_receive(), msg_rpc() -> 마지막 이 친구는 remote procedure call이며 나중에 볼 것이다. 
-- mailbox가 나중에 c**ommunication을 위해서 만들어 진다**면(첫 번째때 말한 것) system call **port_allocate()**에 의해 만들어 진다.
-- send 와 receive가 유연해서 mailbox가 꽉 찬다면 아래와 같은 옵션이 있다.
-  - 무한정 기다린다
-  - 최대 n-ms 동안 기다린다.
-  - 즉시 return 한다.
-  - OS가 추가적인 공간을 mailbox를 위해 지원한다.
-
-#### Examples of IPC Systems – Windows
-
-message passing이 LPC(local procedure call)을 통해 이루어 진다. sending하는데 좀 더 복잡하다.
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-23 오후 5.38.33.png)
-
-- network상에서 일어나지 않고 같은 시스템 상(local을 의미한다.)에서만 communication이 일어난다.
-- Ports를 사용하여 communication channel을 유지한다.
-- communication은 아래와 같이 일어난다.
-  - client가 subsystem의 connection port object의 handle을 연다.
-  - client가 connection 요청을 보낸다.
-  - server가 두 개의 private한 communication ports를 만든다.
-    - client-server message port
-    - server-client message port
-  - client가 message나 callback을 보내기 위하거나 replies를 듣기 위해 서버가 대응되는 port handle을 사용한다
-  - 더 큰 messages는 서버가 생성한 section object를 통해 전달되어야 한다.
-
-### Communication in Client-Server System
-
-지금까지 IPC method in process를 봤고, 여기서는 IPC method를 Client-Server model을 사용하여 사용한 방법을 알아볼 것이다.
-
-#### Sockets
-
-Sockets의 정의는 아래와 같다. 
-
-- 두 process간 communication의 **endpoint**
-- **IP address와 port의 연결로 정의한다.** (161.25.19.8:1625 -> IP 주소, 콜론, port number와 같이 정의한다.)
-
-따라서, Communication을 하기 위해서는 **socket이 두 개**가 필요하며, **각각의 socket은 서로의 socket정보**를 가지고 있어야 한다.
-
-- socket for server side
-- socket for client side   
-
-소켓이 하나라면 communication은 일어나지 않는다. 
-
-특정 IP address와 port number의 성질은 아래와 같다.
-
-- application을 구현한다면 1024보다 낮은 port number을 할당하지 마라. -> 이미 OS를 위해 사용되는 port number이기 때문이다.
-- 127.0.0.1(**loopback**) : process가 실행될 때 local system을 나타내는 IP address이다.
-  - loopback을 사용하면 remote area에 있는 process는 접근할 수 없다.
-  - 그 외에서 local server에 접근하기 위한 IP address가 있긴 하다. (192.168.0.1)
-
-##### Socket Communication
-
-소켓 사이의 연결을 나타낸 그림
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.21.41.png)
-
-- host X (client side)
-- web server (server side) : port number = 80은 OS에 의해 지정된 service port이다.
-- client는 server side의 80번 포트로 연결이 된다.
-
-##### Type of Sockets
-
-- **TCP(Transmission Control Protocol) Socket** 또는 **Connection Oriented Socket** : Socket이 TCP 방법으로 만들어지면, Client와 server는 단단히 묶이며 여기 두 IP address에서 일어나는 모든 connection은 hand shaking(정상적인 통신이 시작되기 전에 두 개의 실체 간에 확립된 통신 채널의 변수를 동적으로 설정하는 자동화된 협상 과정)이 필요하다. -> **메세지가 없어지면 다시 보내기 때문에 믿을 수 있다.**
-  - Socket class 사용
-- **UDP(User Datagram Protocol) Socket** 또는 **Connectionless sockets** : 메세지를 보내고 packet이 없어져도 상관을 쓰지 않는다. 그래서 robustness한 데이터(이미지나 그림, 큰 데이터)가 여기서 전해진다.
-  - Datagram Socket 사용
-- Multicast Socket : UDP는 2개의 소켓이 필요한데, Multicast socket은 **1server - m client** 혹은 **m server - 1client** 연결하고, UDP처럼 packet이 없어져도 그냥 냅둔다.
-  - Datagram Socket의 subclass인 MulticastSocket class 를 사용한다.
-
-따라서 application의 속성에 따라 내가 선택해서 설계한다.
-
-##### Socket in Java
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 5.24.14.png" style="zoom: 50%;" />
-
-- ServerSocket(6013) : Port number가 6013, IP address는 localhost로 만들 것이므로 적지 않음. 따라서 여기서 server socket을 만든다. (얘가 서버이므로 알아서 해주겠지)
-- Socek client = sock.accept(); : client에서 오는 socket을 기다린다.(blocking call)
-- PrintWriter pout = new PrintWriter(client.getOutputStream(), true); : client가 server로 들어왔음을 의미한다. 또한 client의 outputstream의 handle(client가 사용할 메모리 주소를 다른 정수로 치환하여 server에 보낸 정수 값을 의미한다.)
-- pout.println(new java.util.Date().toString()); : date를 작성해준다. 이로 인해 client는 Date 정보를 받을 수 있다.
-- client를 닫음으로써 server-client의 communication을 닫는다.
-
-#### Remote Procedure Calls
-
-RPC(Remote Procedure Calls)는 Socket 방식과는 다르다. 
-
-- Socket은 Communication의 방식을 알고 **유저가** 따로 **코딩을** 해야한다.
-- RPC는 network procedure를 **OS**가 관리한다.
-
-이것을 위해서 user program이 어떤 부분의 code가 remote process로 전송되어야 하는지 알아야 한다. 그래서 **stubs**을 만든다.
-
-- stubs : **procedure을 실행시키기 위한 패키지** 이다.
-
-그러면 이 stubs를 어떻게 사용하나?
-
-- client side stub이 port를 server에 위치시키고 parameters들을 (marshals)수집한다.
-- server side stub이 메세지를 받고, 모아진 데이터(marshalled된)를 까서 server에서 procedure를 수행한다.
-
-하지만, 이런 stub code들이 다른 program에서 실행될 수 있으므로 보통 명시된 interface에서 컴파일 된다. 따라서 다른 machine에서 comfliction(big endian - little endian차이와 같은)을 피하기 위해 아래와 같은 방법이 있다.
-
-- XDR(External Data Representation) : 기계와 독립적으로 표현된 데이타를 사용한다.
-
-local 보다 remote communicatino이 실패 시나리오가 많으므로 아래와 같은 RPC가 아래와 같은  policy를 취한다.
-
-- Policy 1 : 최대 하나의 message를 보낸다. -> time stamp 를 각 메세지에 만든다.
-- Policy 2 : 메세지를 한 번만 보낸다. -> kernel 이 각 메세지를 받았다는 피드백을 보낸다.
-
-이를 위해서 RPC는 client -server 연결이 rendezvous하다.
-
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.14.31.png" style="zoom:50%;" />
-
-- caller가 stubs만들어 server에 전송한다. stub이 서버에서 처리되고 결과를 다시 server가 client로 보낸다. 
-
-너가 server에서 calculation을 server에서 분산처리 하고싶다면
-
-1. user가 kernel 을 호출해 RPC message를 procedure X로 보내라고 한다.
-2. user가 **kernel** **mode**로 바뀐다. kernel이 message를 **server의 matchmaker**로 보내 port number을 찾게 한다. 이때 stub을 만들지 않는다.
-3. port를 찾아서 server가 client에서 port number을 전송한다. 
-4. client가 port number을 알고 있으므로 RPC를 stub과 같이 보낸다. 
-5. server OS의 daemon이 Port P에서 message를 받았다는 것을 알고 stub을 unpacking 하고 prucedure을 수행한다. 그러고 나서 수행 결과를 client의 kernel로 보낸다. 
-6. kernel이 결과를 user모드로 보내고, user가 결과를 알게 된다. 
-
-이 과정에서 developer이 kernel procedure을 몰라도 되는 과정이었다. 
-
-#### Pipes
-
-Process간의 Direct communication. 제한이 많지만 직관적이고 빠르다. Process간 communication이 제일 빠른 방법이다. 종류는 두 가지가 있다.
-
-- Ordinary Pipes : Parent 와 child process간 communication을 위해 사용이 된다.
-- Named Pipes : 보통 이거를 많이 쓴다. 사용하기 쉬워서 그래도 ordinary도 한다. 
-
-##### Ordinary Pipes
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.33.26.png)
-
-- **Producer**가 pipe의 **write-end**에서 write한다. 
-- **Consumer**가 pipe의 **read****-end**에서 read한다.
-- 단방향으로 데이터 전송 
-- 따라서 한 쪽으로만 데이터를 전송이 가능한 **Unidirectional**하다.
-- pipe는 메모리에 있으며, UNIX에서는 read() write() system calls로 다룬다. 
-- 윈도우는 anonymous pipes라고 부른다. 
-
-아래는 parent process에서 child process로 Greetings라는 메세지를 보내는 방법이다. 
-
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-24 오후 6.38.09.png)
-
-- fd[2] : pipe를 위한 file discriptor 2개를 만들어야 하며 
-- pid를 만듬.
-- child process를 만들기 전에 pipe를 먼저 만든다. 
-- child를 만든다. 
-- child가 안만들어지면 에러
-- pid > 0 : parent process이므로 
-  -  read end를 닫음
-  -  write를 한다. 
-  -  write end를 닫는다.
 - pid < 0 : child process이므로
   - write end를 닫음
   - read  한다.

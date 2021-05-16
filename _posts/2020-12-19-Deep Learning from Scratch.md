@@ -8,6 +8,7 @@ categories:
 ## 퍼셉트론
 다수의 입력 신호를 받아 하나의 신호를 출력하는 퍼셉트론은 앞으로 배우게 될 **신경망**의 기초가 되는 알고리즘이다. 퍼셉트론의 수식은 아래와 같으며 이를 응용하여 단순한 논리게이트를 만들어 낼 수 있다.  
 ![2.1](/assets/images/post/2020-12-25-DeepLearningFromScratch/e 2.1.png)
+
 -   x : 입력값
 -   W : 가중치 -> 각 신호가 결과에 주는 영향력을 조정하는 요소로 작용하며 클 수록 해당 신호가 그만큼 더 중요하다는 것을 나타낸다.
 -   θ : 임계값 -> 한계값에 해당하며, 이 값을 넘지 않으면 1을 출력하지 않는다.  
@@ -115,7 +116,7 @@ for i in range(len(x)):
         accuracy_cnt += 1
 
 print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
-```  
+```
 
 
 ## 손실함수
@@ -158,7 +159,7 @@ batch_size = 10
 batch_mask = np.random.choice(train_size, batch_size) 
 x_batch = x_train(batch_mask)
 t_batch = t_train(batch_mask)
-```  
+```
 
 ## 기울기
 우리가 왜 **손실 함수**를 설정하였는가에 대해 알아보면 **매개변수**의 미분을 계산하여 그 값을 단서로 값을 서서히 갱신하는 과정을 반복해야 한다. 만약 가중치 매개변수의 손실 함수의 미분은 값을 아주 조금만 변화 시켰을 때 손실 함수가 어떻게 변하는지에 대한 단서이다. 따라서 손실함수를 왜 구해야 하는지 알았으므로 기울기를 구하는 방법을 알아보겠다.  
@@ -191,7 +192,7 @@ def numerical_gradient(f,x):
         x[idx] = tmp_val
 
     return grad
-```  
+```
 
 ## 경사법
 최적의 매개변수를 찾는 방법 중 하나이며, 기울기를 이용해 최솟값을 찾으려는 것을 경사법이라고 한다. 수식은 아래와 같다.  
@@ -253,7 +254,7 @@ class TwoLayerNet:
         grads['b2'] = numerical_gradient(loss_W,self.params['b2'])
 
         return grads
-```  
+```
 
 ### 시험 데이터로 평가하기
 ```python
@@ -297,7 +298,7 @@ for i in range(iters_num):
         test_acc_list.append(test_acc)
         print("train acc, test acc |" + str(train_acc)+","+str(test_acc))
 
-```  
+```
 
 ## 오차역전파법(Backpropagation)
 수치 미분을 통해서 손실함수의 기울기를 구하는 방법은 쉽지만, 계산 시간이 너무 오래 걸린다는 것이 단점이다. 하지만 **오차역전파법**을 사용한다면 가중치 매개변수의 기울기를 효율적으로 계산하여 시간단축이 가능하다.
@@ -367,7 +368,7 @@ class Relu:
         dx = dout
 
         return dx
-```  
+```
 ### Sigmoid 계층
 연쇄법칙에 의해서 sigmoid의 미분값은 아래의 식과 같이 순전파의 출력만으로 계산이 가능하다.  
 
@@ -390,7 +391,7 @@ class Sigmoid:
         dx = dout * (1.0 - self.out) * selfout
 
         return dx
-```  
+```
 
 ### Affine 계층
 신경망의 순전파 때 수행하는 행렬의 곱을 기하학에서는 어파인 변환(Affine transformation)이라고 한다. 따라서 어파인 변환을 수행하는(행렬의 곱) 계층을 Affine 계층이라고 한 것이다. 역전파를 구한 값에 해당하는 식은 아래와 같다.
@@ -421,7 +422,7 @@ class Affine:
         self.db = np.sum(dout,axis=0)
 
         return dx
-```  
+```
 
 ### Softmax-with-Loss 계층 
 Softamx-with-Loss의 계층에서 역전파의 결과가 y-t라는 말끔한 값이 나오지만, 그의 유도는 꽤나 복잡하므로 생략하겠다. 이를 구현한 코드는 아래와 같다.  
@@ -444,7 +445,7 @@ class SoftmaxWithLoss:
         dx = (self.y-self.t) / batch_size
 
         return dx
-```  
+```
 
 ## 오차역전파법을 이용한 신경망 구현하기
 미니배치 -> 기울기산출(오차역전파법 구현) -> 매개변수 갱신 -> 반복 : 이 네개의 과정을 순서대로 구현한다면 아래와 같다.  
@@ -584,7 +585,7 @@ class SGD:
     def update(self, params, grads):
         for key in params.keys():
             params[key] -= self.lr*grad[key]
-```  
+```
 
 -   위의 구현처럼 모듈화하여 optimizer = SGD()와 같이 기능을 모듈화 하기가 좋다.  
 
@@ -613,7 +614,7 @@ class Momentum:
         for key in params.keys():
             self.v[key] = self.momentum * self.v[key] - self.lr*grads[key]
             params[key] += self.v[key]
-```  
+```
 
 ### AdaGrad
 처음에는 크게 학습을 하다가 나중에 들어서는 조금씩 학습한다는 방법이다. 수식은 아래와 같다.  
@@ -735,7 +736,7 @@ class Convolution:
         out = out.reshpae(N, out_h, out_W, -1).transpose(0, 3, 1, 2)
 
         return out
-```   
+```
 
 ## 풀링 계층 구현하기
 ```python
@@ -832,7 +833,6 @@ class SimpleConvnet:
 
         return grads
 ```
-
 
 
 

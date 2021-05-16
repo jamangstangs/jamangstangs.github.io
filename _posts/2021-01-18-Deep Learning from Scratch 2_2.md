@@ -18,7 +18,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 순환하는 것의 의미는 어느 한 지점에서 시작한 것이, 시간이 지나 다시 원래 장소로 돌아오는 것을 말한다. 그리고 이 과정을 반복하는 것이 순환이다. 마치 자동차 레이싱에서 일정한 원형 트랙을 도는거와 같다. 이때, 자동차 트랙은 **닫힌 경로** 이며 이로인해 같은 경로를 반복하여 왕래할 수 있는 이유가 된다. 아래의 그림을 참고하여 RNN의 그림을 구체적으로 살펴보자.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-6.png) 
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-6.png) 
 
 - 특정 경로가 순환하는 것이 보인다. 이 경로를 따라 데이터를 순환시킨다.
 - t : 시각을 의미하며, x 입력 데이터와 h 출력 데이터에 t를 표시하였는데, 이는 시계열 데이터를 의미하며, $(x_0, x_1,...,x_t,...)$ 이 RNN의 계층에 입력된 것을 표현한 것이다.
@@ -26,7 +26,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 이제부터, 위의 그래프의 입력값을 지면에서 솟아 오르듯이 표현하여 각 시각에 따라 순환구조를 펼쳐본다면 다음과 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-8.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-8.png)
 
 진짜 이렇게 펼친거보고 감탄을 할 수 밖에 없었다고 한다.
 
@@ -51,7 +51,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 위의 그림에서 RNN 계층을 가로로 넓게 펼친 사진을 봤을 것이다. 따라서 RNN의 학습도 피드포워드 방식의 신경망과 같은 방식으로 학습이 가능하다. 아래의 그림과 같이 역전파 과정을 구현할 수 있기 때문이다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-10.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-10.png)
 
 - 위의 그림을 통해 **RNN에도 일반적인 역전파법이 적용됨을 알 수 있다.**
 - RNN의 오차역전파법을 **BPTT(BackPropagation Through Time)**이라고 한다.
@@ -72,7 +72,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 위와 같은 이유로 오차역전파를 할 때 아래의 그림과 같이 자른다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-11.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-11.png)
 
 - 특징 1: 순전파는 잘리지 않았다. (**데이터를 순서대로 입력해야 한다.**)
 - 특징 2: 역전파는 10개 단위로 잘렸다. 이렇게 역전파의 연결을 잘라버리면 그보다 미래의 데이터에 대해서는 생각할 필요가 없어진다. 따라서 각각의 **블록단위**로 독립적으로 오차역전파를 완결시킬 수 있다.
@@ -81,14 +81,14 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 ### 첫 번째 블록
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-12.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-12.png)
 
 - 1. 순전파를 먼저 수행한다.
   2. 다음 블록의 입력데이터($x_10 to x_19$)를 입력해 오차역전파법을 실행한다.
 
 ### 두 번째 블록
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-13.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-13.png)
 
 - 1. 순전파를 계산한다. 이때는 앞 블록의 **마지막 은닉 상태인 $h_9$**가 필요하다는 것이다.
   2. 다음 입력 데이터($x_20 to x_29$)를 이용하여 오차역전파법을 수행한다.
@@ -106,7 +106,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 - 미니 배치가 2개 : 각 미니배치는 500개의 데이터를 가짐, 각각 10개의 단위로 잘라 학습한다.
 - 첫 번째 데이터를 0~9 까지 줬다고 하자. 그렇다면 두 번쨰 미니배치는 500~509까지 줘야할 것이다. 500의 상대적인 **위치는** 0의 위치보다 상대적으로 500만큼 떨어져 있고, 모든 **데이터마다 동일하게 500만큼 떨어져 있다.** 따라서 다음 데이터의 시작위치를 500만큼 **오프셋을 옮겨준다면 ** 아래 그림과 같이 학습이 진행된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-15.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-15.png)
 
 - 두 개의 미니배치가 병렬적으로 처리되는 것을 볼 수 있다. 
 - 1 EPOCH 가 끝나면 다음 EPOCH에서 다시 처음부터 입력한다.
@@ -117,12 +117,12 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 우리가 구현할 RNN의 모습은 지금까지 봐왔던 가로방향으로 성장한 RNN의 모습이고, Truncated BPTT의 방식의 학습을 따른다면 가로 크기가 일정한 일련의 신경망을 구현하면 된다. 아래의 RNN이 우리가 구현할 모형이다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-16.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-16.png)
 
 - 길이가 T인 시계열 데이터를 받는다.
 - 각 시간의 은닉 상태를 T개 출력한다. 이때 옆으로 성장한 신경망을 **하나의 모듈** 로 만들어 구현한다면 그림이 다음과 같게된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-17.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-17.png)
 
 - hs : T개의 출력을 하나로 묶어놓았다.
 - xs : T개의 입력을 하나로 묶어놓았다. 
@@ -137,7 +137,7 @@ Recurrent Neural Network의 줄임말인 **RNN** 은 Recurrent의 의미인 "순
 
 위와 같이 신경망을 계산할때는 행렬의 형상 확인이 매우 중요하다. 아래에서 행렬의 형상을 확인하는 그림을 보고 은닉 벡터의 형상을 확인해보겠다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-18.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-18.png)
 
 - N : 미니배치의 크기를 나타낸다.
 - D : 입력 벡터의 차원수를 나타낸다.
@@ -196,7 +196,7 @@ def backward(self, dh_next):
 
 ### Time RNN 계층 구현
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-21.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-21.png)
 
 - Time RNN = RNN계층을 T개 연결한 신경망을 의미한다.
 - 은닉상태 h를 인스턴스 변수로 유지한다.
@@ -288,26 +288,26 @@ def backward(self, dhs):
 
 RNN을 사용하여 언어모델을 구현하는 것이 최종목표이다. 이번 절에서는 RNNLM (RNN Language Model)을 만들어 볼 것이다. 구현해야 할 RNNLM의 전체적인 그림은 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-25.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-25.png)
 
 - 단어 ID를 단어의 **분산표현** 으로 변환한다. 그 표현이 RNN계층으로 입력이 된다.
 - Affine 계층을 거쳐 softmax 계층으로 전해진다.
 
 우리가 주목해야할 그림은 아래에 있다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-26.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-26.png)
 
 - ID = 0 인 you 가 입력 -> say가 가장 높게나옴. 
 - ID = 1 인 say 가 입력 -> goodbye와 hello가 높게 나옴. 여기서 RNN계층은 you say라는 맥락을 기억하고 있다느 것을 알 수 있다. 이것으로 인해 입력된 단어를 기억하여 과거에서 현재로 데이터를 계속 흘려보내줌으로서 과거의 정보를 저장할 수 있다.
 
 이제 위의 펼쳐진 계층에서 Affine과 Embedding 계층을 Time의 형태로 묶어주면 아래와 같다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-27.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-27.png)
 
 - time Affine, time Embedding : 설명은 쉬우므로 생략한다.
 - Time Softmax : 아래와 같이 구현된다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-29.png)
+![](/assets/images/post/2021-01-18-DeepLearningfromScratch2_2/fig 5-29.png)
 
 - x : 아래층에서부터 전해지는 점수,
 - t : 정답 레이블 
@@ -317,7 +317,6 @@ RNN을 사용하여 언어모델을 구현하는 것이 최종목표이다. 이�
 <center>
   $L = frac{1}{T}(L_0 + L_1 + ... + L_{T-1})$
 </center>
-
 
 
 

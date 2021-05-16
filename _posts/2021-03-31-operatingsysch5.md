@@ -15,7 +15,7 @@ categories:
 
 ### Chapter 1&2 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.33.24.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.33.24.png)
 
 폰노이만 아키텍쳐에서 컴퓨터 시스템이 어떻게 설정되는지 알아보았다.
 
@@ -28,7 +28,7 @@ categories:
 
 Process에 대해서 배움. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.42.11.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.42.11.png)
 
 Storage에 있는 program이 main memory로 올라가면 **Process**이다. 
 
@@ -41,7 +41,7 @@ Storage에 있는 program이 main memory로 올라가면 **Process**이다.
 
 Thread에 대해서 배움.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.45.59.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 6.45.59.png)
 
 - 최근의 OS, application => Multithreaded process를 사용한다. 
 - 하나의 process가 user와 program의 상호작용을 위해서 multithread를 가지고 있다. 
@@ -55,12 +55,12 @@ Multiprogrammed OS의 기본이 되는 CPU scheduling을 배울 예정이고 CPU
 
 scheduling의 의미는 CPU 사용을 최대한으로 한다는 것이다. **프로세스는 CPU execution과 I/O wait의 cycle로 구성되어있다.**
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.37.03.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.37.03.png" style="zoom:50%;" />
 
 - CPU burst는 I/O burst 이후에 따라오는 것이다.(데이터를 disk나 memory에서 받고 계산을 하는 것이기 때문이다.)
 - 따라서, **CPU burst 분배가 주요 문제이다.**
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.36.48.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-03-31 오전 8.36.48.png" style="zoom:50%;" />
 
 - CPU burst는 8ms가 넘지 않으므로 Scheduler가 취할 수 있는 최대의 전략은 8ms을 각각의 process나  thread에게 할당하는 것이다. 
 
@@ -73,20 +73,20 @@ Short-term Scheduler : ready queue에 있는 process를 선택해서 CPU에 그�
 CPU scheduling 결정은 process가 아래와 같은 상황일 때 발생할 수 있다.
 
 1. running state에서 waiting state으로 switch가 발생 
-   - -> **(OS가 강제적으로 CPU 반납하라고 강요)**, preemptive(선점)
+   - ->  **( 자발적으로 CPU반납, OS가 강요하지 않음)**, nonpreemptive(비선점)
 
 2. running state에서 ready state으로  switch가 발생
-   - -> **( 자발적으로 CPU반납, OS가 강요하지 않음)**, nonpreemptive(비선점)
+   - -> **(OS가 강제적으로 CPU 반납하라고 강요)**, preemptive(선점)
 
 3. waiting state에서 ready state로
-   - ​	-> **(자발적으로 CPU반납, OS가 강요하지 않음)**, nonpreemptive
+   - ​	->**(OS가 강제적으로 CPU 반납하라고 강요)**, preemptive
 
 4. Terminates
-   - -> **(OS가 강제적으로 CPU 반납하라고 강요)**, preemptive
+   - ->  **( 자발적으로 CPU반납, OS가 강요하지 않음)**, nonpreemptive(비선점)
 
-preemptive : 1, 4번 경우
+nonpreemptive : 1, 4번 경우
 
-nonpreemptive : 2, 3번 경우
+preemptive : 2, 3번 경우
 
 - 공유 데이터 접근에 신경쓴다.
 - 결정적인 OS 활동 중 발생한 Interrupts를 신경쓴다.
@@ -123,7 +123,11 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
     - first response가 output을 의미하는 것이 아니다. 
     - display에 2d 이미지를 한다고 하자. response time은 2d이미지가 생성되는 것을 의미하자 display까지 bus를 타고 우리 인간의 눈으로 보일 때 까지 output이 아니다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.08.57.png)
+첫 번째 response를 빠른 시간 내에 실행하려면 여러  Process를 빠르게 실행해야 하므로 context switching이 발생한다. 상대적으로  context switching하는 시간이 많아지므로  CPU utilization이나 Throughtput은 떨어질 수 밖에 없다.
+
+
+
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.08.57.png)
 
 #### Waiting Time Optimization
 
@@ -131,7 +135,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 그냥 FIFO이라고 생각하자. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.18.10.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.18.10.png)
 
 - 3개의 process가 있다고 생각하자. 이 process가 p1 p2 p3 순서대로 온다고 하자.
 - Burst Time : CPU burst time
@@ -145,7 +149,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 **기존 FCFS방식의 해결책 : 다음과 같이 순서를 바꾸면 어떻게 될까?**
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.21.56.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.21.56.png)
 
 - P2 P3 P1
 - P2 Waiting time : 0
@@ -156,7 +160,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 이전 상황보다 훨신 나아진 대기시간을 볼 수 있다. 이것을 Convoy Effect라고 한다.
 
-- Convoy Effect : Short process 뒤에 Long process를 배치하면 전체 시스템의 속도를 높여줄 수 있다. 
+- **Convoy Effect :** Short process 뒤에 Long process를 배치하면 전체 시스템의 속도를 높여줄 수 있다. 
 
 
 
@@ -166,7 +170,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 이것을 job으로 고려하면 가장 짧은 CPU burst를 가진 것을 앞으로 보내면 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.39.19.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.39.19.png)
 
 - 평균 Waiting time : (0 + 3 + 9 + 16)/4 = 7
 
@@ -185,9 +189,10 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
   - 따라서, 과거의 CPU burst time이랑 다음의 CPU burst time을 예측해서 각각의 process에서 CPU burst time history를 보고 예측을 해야한다. 
 - 이전의  CPU burst length를 이용해서, Exponential Averaging을 사용하면 해결이 가능하다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.48.32.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.48.32.png)
 
 - a : 보통 0.5로 세팅된다. 
+- 구하고자 하는 수열에 1-a 꼴을 취한다. 
 
 **Preemptive SJF는 shortest remaining time first**
 
@@ -196,24 +201,24 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 ###### 다음 CPU burst 길이를 예측하는 방법
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.56.45.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 7.56.45.png)
 
 - 과거 예측값 * (1-a) + 실제 측정값 * a
 
 ###### Exponential Averaging의 예시
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.00.23.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.00.23.png)
 
 - a = 0
   - 실제 history를 고려하지 않음
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.00.28.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.00.28.png)
 
 - a = 1
   - 실제 history만 고려한다. 
 - 이것을 공식으로 확장하면 다음과 같이 된다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.02.59.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.02.59.png)
 
 ##### Shortest-remaining time first
 
@@ -221,7 +226,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 - Preemptive : 다른 Process가 현재 process를 멈추고 CPU를 점유하는 것을 의미한다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.06.08.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.06.08.png)
 
 - p1 p2 p3 p4 : 도착 시간이 다 다르다. 그리고 다음 CPU burst time의 예측값이 있다. 
 
@@ -258,7 +263,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 ###### Non preemptive Priotiry Scheduling
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.24.52.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오전 8.24.52.png)
 
 - Non preemptive 이유로 중간에 Process가 끊어지지 않는 것을 볼 수 있다. 
 - Priority가 Burst time을 기반으로 실행한 것이 아니라
@@ -288,7 +293,7 @@ Scheduling algorithm을 배울 것이다. 각 algorithm은 목표가 있으므�
 
 ###### RR with Time Quantum = 4
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.27.14.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.27.14.png)
 
 - 각 Process마다 주어진 Time Quantum은 **4ms**이다. 
 - P1은 처음에 4ms 실행되고, time quantum이 소진되서 다음 process로 넘긴다. 
@@ -302,7 +307,7 @@ Context Time < 10usec , q 는 보통 10ms 에서 100ms사이.
 
 ###### Time quantum and Context Switch Time
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.36.12.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.36.12.png)
 
 - Process time이 10이고, 아래 quantum이 다음과 같은 수라고 하자. 그러면 위의 그림에서 쉽게 유추가 가능하다. 
 - 12 : 0 -> context switch가 필요 없다.
@@ -313,7 +318,7 @@ Context Time < 10usec , q 는 보통 10ms 에서 100ms사이.
 
 ###### Turnaround Time Varies with the Time Quantum
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.44.22.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 1.44.22.png)
 
 - 왼쪽 그림 : Time quantum의 크기에 따른 평균 turnaround time을 나타낸 그림이다. 
   - Time quantum이 너무 작으면 : 평균 turnaround time 좀 높다.
@@ -376,7 +381,7 @@ Multilevel queue는 다음과 같은 특징이 있다.
 
  아까 위의 예시보다 좀 더 multilevel queue를 보여줬다. 
 
-​	<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 5.59.59.png" style="zoom:50%;" />
+​	<img src="/assets/images/post/operating system/스크린샷 2021-04-05 오후 5.59.59.png" style="zoom:50%;" />
 
 - process를 2개보다 많이 분류했다. 
 - system processes : 우선순위가 높은 process이다. 
@@ -406,7 +411,7 @@ Multilevel feedback queue scheduler는 아래와 같은 매개변수로 정의�
 
 ##### Example of Multilevel Feedback Queue
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.18.30.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.18.30.png)
 
 - Q0 : RR로 구현되고, time quantum이 8ms인 queue	High priority
 - Q1 : RR로 구현되고, time quantum이 16ms인 queue
@@ -455,9 +460,9 @@ API가 thread creation에서 PCS인지 SCS인지 아래와 같은 flag를 통해
 - PTHREAD_SCOPE_PROCESS : PSC 사용
 - PTHERA_SCOPE_SYSTEM : SCS 사용
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.47.21.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.47.21.png)
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.47.27.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 6.47.27.png)
 
 
 
@@ -486,7 +491,7 @@ Multiprocessor 안에 **Homogeneous processors** (서로 같은 스펙의 proces
 
 #### NUMA and CPU Scheduling
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 8.36.33.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 8.36.33.png)
 
 Non uniform multiprocessor architecture을 가지고 있다고 가정하자. 
 
@@ -509,7 +514,7 @@ SMP모델로 실행시킨다면, 모든 CPU들이 효율을 위해서 load해야
 
 #### Multithreaded Multicore System
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 9.04.10.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 9.04.10.png)
 
 - Single Process가 CPU burst job과 I/O burst job을 실행한다고 하자.
 - 같은 방식으로
@@ -556,12 +561,12 @@ Virtualization software은 CPU에서 multiple guest를 schedule한다.
 
 이제 퍼포먼스에 영향을 주는 **2가지 Latency**를 알아보자.
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 10.22.00.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-04-05 오후 10.22.00.png" style="zoom:50%;" />
 
 - Interrupt Latency 
   - Interrupt의 도착 ~ Interrupt Service Routine의 시작 까지의 시간
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-05 오후 10.26.10.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-05 오후 10.26.10.png)
 
 - **Dispatch Latency** 
   - 현재 Process를 CPU를 떼고 다른 process로 switch하는데 걸리는 시간.
@@ -578,7 +583,7 @@ Hard Real-time Scheduling은 반드시 Preemptive, priority based scheduling을 
 
 Hard real time에선, OS는 반드시 deadline을 만족하는 능력을 제공해야 한다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.15.42.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.15.42.png)
 
 주기적인 Process는 일정 간격마다 CPU가 필요하다.
 
@@ -597,7 +602,7 @@ Hard real time에선, OS는 반드시 deadline을 만족하는 능력을 제공�
 
 이를 가지고 다음 예시를 보자
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.23.01.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.23.01.png)
 
 - P1 : period =50, process time = 20
 - P2 : period =100, process time = 35
@@ -609,7 +614,7 @@ Hard real time에선, OS는 반드시 deadline을 만족하는 능력을 제공�
 
 #### Missed Deadlines with Rate-Monotonic Scheduling
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.27.18.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-06 오전 6.27.18.png)
 
 - P1 : period =50, process time = 25
 - P2 : period =80, process time = 35
@@ -629,7 +634,7 @@ Hard real time에선, OS는 반드시 deadline을 만족하는 능력을 제공�
 - Deadline이 빠를수록 : Priority를 높인다. 
 - Deadline이 늦을수록 : Priority를 낮춘다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 4.26.44.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-07 오후 4.26.44.png)
 
 - 이전 예시와 같은 조건인데, Priority를 바꿈
 - 첫번째 : P1이 Deadline이 더 빠르다. -> P1 실행
@@ -669,12 +674,12 @@ POSIX 방식에서는 2가지 Scheduling class만 정의한다.
 
 Real time system으로 사용하려면 system scope에서 thread를 생성해야 한다. (pthread_scope_system) Process schedulering class가 real time class로부터 온다. 
 
-<img src="/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 4.58.38.png" style="zoom:50%;" />
+<img src="/assets/images/post/operating system/스크린샷 2021-04-07 오후 4.58.38.png" style="zoom:50%;" />
 
 - 추가된 것에서 schedule policy만 받아오는 것이 다른 점이다. 
 - print해서 답을 줄 것이다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.01.26.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.01.26.png)
 
 
 
@@ -688,13 +693,13 @@ Real time system으로 사용하려면 system scope에서 thread를 생성해야
 
 미리 정해진 작업량을 받고 각 algorithm의 performance를 그 작업량에 대해 정의한다. 
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.43.32.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.43.32.png)
 
 이런 정보를 받고, 위의 criteria를 평가하는 것이다. 
 
 #### Deterministic modeling
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.45.51.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-07 오후 5.45.51.png)
 
 기존에 해왔던 것처럼 process의 CPU burst 정보를 받고 average waiting time을 계산하는 것이다.  
 
@@ -753,7 +758,7 @@ Queueing model은 매우 제한적이다. 성능은 좋지만 예외의 상황�
   - 수학적 분호
   - trace tape라는 real system의 log 데이터를 사용한다. 요새는 우리 **log file**을 본다.
 
-![](/Users/jamang/Documents/jamangstangs.github.io/assets/images/post/operating system/스크린샷 2021-04-07 오후 6.14.50.png)
+![](/assets/images/post/operating system/스크린샷 2021-04-07 오후 6.14.50.png)
 
 - 따라서, 위와 같이 실제 system의 log data를 가지고 실제 simulation에 적용해서 각 algorithm의 performance를 분석할 수 있다. 
 
